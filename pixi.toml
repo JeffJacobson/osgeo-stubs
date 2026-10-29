@@ -1,0 +1,15 @@
+[workspace]
+authors = ["Jeff Jacobson <JeffJacobson@users.noreply.github.com>"]
+channels = ["conda-forge"]
+name = "types-gdal"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+rich = ">=15.0.0,<16"
+typer = ">=0.27.3,<0.28"
+gdal = ">=3.13.3,<4"
+libgdal-core = ">=3.13.3,<4"
+libgdal-arrow-parquet = ">=3.13.3,<4"
