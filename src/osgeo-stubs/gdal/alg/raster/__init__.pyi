@@ -4,6 +4,9 @@ from typing import List
 
 import osgeo.gdal
 from osgeo import gdal
+from . import overview
+
+__all__ = ["overview"]
 
 def as_features(
     input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]],

@@ -5,6 +5,10 @@ from typing import List
 import osgeo.gdal
 from osgeo import gdal
 
+from . import dataset, driver, mdim, raster, vector, vsi
+
+__all__ = ["dataset", "driver", "mdim", "raster", "vector", "vsi"]
+
 def convert(
     input: osgeo.gdal.Dataset | str | os.PathLike[str],
     output: osgeo.gdal.Dataset | str | os.PathLike[str],

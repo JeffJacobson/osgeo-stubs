@@ -20,6 +20,8 @@ import numpy as np
 
 from . import alg
 
+__all__ = ["alg"]
+
 if (
     getattr(globals().get("__spec__"), "parent", None) or __package__ or "." in __name__
 ): ...
