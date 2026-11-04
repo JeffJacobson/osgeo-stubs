@@ -15,9 +15,8 @@ from pathlib import Path
 from types import ModuleType
 from typing import Annotated, Any, NamedTuple, cast
 
-import rich
 import typer
-from osgeo.gdal import alg # pyright: ignore[reportMissingModuleSource]
+from osgeo.gdal import alg  # pyright: ignore[reportMissingModuleSource]
 
 alg = cast(ModuleType, alg)
 
@@ -103,8 +102,10 @@ def format_callable(c: Callable) -> str:
     name = c.__name__
     doc = c.__doc__
     # Replace if a return time is in the signature.
-    if isinstance(signature, inspect.Signature) and not signature.empty:
+    if not signature.empty:
         return_type_string = signature.return_annotation
+    elif re.search(r"\bgdal\.alg\b", c.__module__):
+        return_type_string = "gdal.Algorithm"
     # If we haven't determined the output type yet, try to extract it from the docstring
     if return_type_string == "..." and doc:
         extracted_output_type = find_output_type_in_doc(doc)
