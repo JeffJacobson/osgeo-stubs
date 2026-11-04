@@ -1,17 +1,19 @@
-# typings\osgeo\gdal\alg\vector\grid.pyi
-import osgeo.gdal
 import os
 from collections.abc import Callable
+from typing import List
+
+import osgeo.gdal
+from osgeo import gdal
 
 
-def average(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: list[str] | dict | str | None = None, input_format: list[str] | dict | str | None = None, creation_option: list[str] | dict | str | None = None, extent: list[float] | float | None = None, resolution: list[float] | float | None = None, size: list[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: list[str] | dict | str | None = None, sql: str | None = None, bbox: list[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, max_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def average(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: List[str] | dict | str | None = None, input_format: List[str] | dict | str | None = None, creation_option: List[str] | dict | str | None = None, extent: List[float] | float | None = None, resolution: List[float] | float | None = None, size: List[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: List[str] | dict | str | None = None, sql: str | None = None, bbox: List[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, max_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create a regular grid from scattered points using moving average interpolation.
 
        Consult https://gdal.org/programs/gdal_vector_grid.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input vector datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output raster dataset
@@ -20,17 +22,17 @@ def average(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
        output_format: Optional[str]=None
            Aliases: format
            Output format
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input_format: Optional[Union[list[str], dict, str]]=None
+       input_format: Optional[Union[List[str], dict, str]]=None
            Input formats
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Creation option
-       extent: Optional[Union[list[float], float]]=None
+       extent: Optional[Union[List[float], float]]=None
            Set the target georeferenced extent
-       resolution: Optional[Union[list[float], float]]=None
+       resolution: Optional[Union[List[float], float]]=None
            Set the target resolution
-       size: Optional[Union[list[int], int]]=None
+       size: Optional[Union[List[int], int]]=None
            Set the target size in pixels and lines
        output_data_type: Optional[str]=None
            Aliases: datatype
@@ -39,12 +41,12 @@ def average(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
            Override the projection for the output file
        overwrite: Optional[bool]=None
            Whether overwriting existing output dataset is allowed
-       input_layer: Optional[Union[list[str], dict, str]]=None
+       input_layer: Optional[Union[List[str], dict, str]]=None
            Aliases: layer
            Input layer name
        sql: Optional[str]=None
            SQL statement
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Select only points contained within the specified bounding box
        zfield: Optional[str]=None
            Field name from which to get Z values.
@@ -83,17 +85,15 @@ def average(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
     """
     ...
 
- 
 
-
-def average_distance(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: list[str] | dict | str | None = None, input_format: list[str] | dict | str | None = None, creation_option: list[str] | dict | str | None = None, extent: list[float] | float | None = None, resolution: list[float] | float | None = None, size: list[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: list[str] | dict | str | None = None, sql: str | None = None, bbox: list[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def average_distance(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: List[str] | dict | str | None = None, input_format: List[str] | dict | str | None = None, creation_option: List[str] | dict | str | None = None, extent: List[float] | float | None = None, resolution: List[float] | float | None = None, size: List[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: List[str] | dict | str | None = None, sql: str | None = None, bbox: List[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create a regular grid from scattered points using the average distance between the grid node (center of the search ellipse) and all of the data points in the search ellipse.
 
        Consult https://gdal.org/programs/gdal_vector_grid.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input vector datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output raster dataset
@@ -102,17 +102,17 @@ def average_distance(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathL
        output_format: Optional[str]=None
            Aliases: format
            Output format
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input_format: Optional[Union[list[str], dict, str]]=None
+       input_format: Optional[Union[List[str], dict, str]]=None
            Input formats
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Creation option
-       extent: Optional[Union[list[float], float]]=None
+       extent: Optional[Union[List[float], float]]=None
            Set the target georeferenced extent
-       resolution: Optional[Union[list[float], float]]=None
+       resolution: Optional[Union[List[float], float]]=None
            Set the target resolution
-       size: Optional[Union[list[int], int]]=None
+       size: Optional[Union[List[int], int]]=None
            Set the target size in pixels and lines
        output_data_type: Optional[str]=None
            Aliases: datatype
@@ -121,12 +121,12 @@ def average_distance(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathL
            Override the projection for the output file
        overwrite: Optional[bool]=None
            Whether overwriting existing output dataset is allowed
-       input_layer: Optional[Union[list[str], dict, str]]=None
+       input_layer: Optional[Union[List[str], dict, str]]=None
            Aliases: layer
            Input layer name
        sql: Optional[str]=None
            SQL statement
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Select only points contained within the specified bounding box
        zfield: Optional[str]=None
            Field name from which to get Z values.
@@ -163,17 +163,15 @@ def average_distance(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathL
     """
     ...
 
- 
 
-
-def average_distance_points(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: list[str] | dict | str | None = None, input_format: list[str] | dict | str | None = None, creation_option: list[str] | dict | str | None = None, extent: list[float] | float | None = None, resolution: list[float] | float | None = None, size: list[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: list[str] | dict | str | None = None, sql: str | None = None, bbox: list[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def average_distance_points(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: List[str] | dict | str | None = None, input_format: List[str] | dict | str | None = None, creation_option: List[str] | dict | str | None = None, extent: List[float] | float | None = None, resolution: List[float] | float | None = None, size: List[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: List[str] | dict | str | None = None, sql: str | None = None, bbox: List[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create a regular grid from scattered points using the average distance between the data points in the search ellipse.
 
        Consult https://gdal.org/programs/gdal_vector_grid.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input vector datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output raster dataset
@@ -182,17 +180,17 @@ def average_distance_points(input: list[osgeo.gdal.Dataset] | list[str] | list[o
        output_format: Optional[str]=None
            Aliases: format
            Output format
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input_format: Optional[Union[list[str], dict, str]]=None
+       input_format: Optional[Union[List[str], dict, str]]=None
            Input formats
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Creation option
-       extent: Optional[Union[list[float], float]]=None
+       extent: Optional[Union[List[float], float]]=None
            Set the target georeferenced extent
-       resolution: Optional[Union[list[float], float]]=None
+       resolution: Optional[Union[List[float], float]]=None
            Set the target resolution
-       size: Optional[Union[list[int], int]]=None
+       size: Optional[Union[List[int], int]]=None
            Set the target size in pixels and lines
        output_data_type: Optional[str]=None
            Aliases: datatype
@@ -201,12 +199,12 @@ def average_distance_points(input: list[osgeo.gdal.Dataset] | list[str] | list[o
            Override the projection for the output file
        overwrite: Optional[bool]=None
            Whether overwriting existing output dataset is allowed
-       input_layer: Optional[Union[list[str], dict, str]]=None
+       input_layer: Optional[Union[List[str], dict, str]]=None
            Aliases: layer
            Input layer name
        sql: Optional[str]=None
            SQL statement
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Select only points contained within the specified bounding box
        zfield: Optional[str]=None
            Field name from which to get Z values.
@@ -243,17 +241,15 @@ def average_distance_points(input: list[osgeo.gdal.Dataset] | list[str] | list[o
     """
     ...
 
- 
 
-
-def count(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: list[str] | dict | str | None = None, input_format: list[str] | dict | str | None = None, creation_option: list[str] | dict | str | None = None, extent: list[float] | float | None = None, resolution: list[float] | float | None = None, size: list[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: list[str] | dict | str | None = None, sql: str | None = None, bbox: list[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def count(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: List[str] | dict | str | None = None, input_format: List[str] | dict | str | None = None, creation_option: List[str] | dict | str | None = None, extent: List[float] | float | None = None, resolution: List[float] | float | None = None, size: List[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: List[str] | dict | str | None = None, sql: str | None = None, bbox: List[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create a regular grid from scattered points using the number of points in the search ellipse.
 
        Consult https://gdal.org/programs/gdal_vector_grid.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input vector datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output raster dataset
@@ -262,17 +258,17 @@ def count(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], 
        output_format: Optional[str]=None
            Aliases: format
            Output format
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input_format: Optional[Union[list[str], dict, str]]=None
+       input_format: Optional[Union[List[str], dict, str]]=None
            Input formats
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Creation option
-       extent: Optional[Union[list[float], float]]=None
+       extent: Optional[Union[List[float], float]]=None
            Set the target georeferenced extent
-       resolution: Optional[Union[list[float], float]]=None
+       resolution: Optional[Union[List[float], float]]=None
            Set the target resolution
-       size: Optional[Union[list[int], int]]=None
+       size: Optional[Union[List[int], int]]=None
            Set the target size in pixels and lines
        output_data_type: Optional[str]=None
            Aliases: datatype
@@ -281,12 +277,12 @@ def count(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], 
            Override the projection for the output file
        overwrite: Optional[bool]=None
            Whether overwriting existing output dataset is allowed
-       input_layer: Optional[Union[list[str], dict, str]]=None
+       input_layer: Optional[Union[List[str], dict, str]]=None
            Aliases: layer
            Input layer name
        sql: Optional[str]=None
            SQL statement
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Select only points contained within the specified bounding box
        zfield: Optional[str]=None
            Field name from which to get Z values.
@@ -323,17 +319,15 @@ def count(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], 
     """
     ...
 
- 
 
-
-def invdist(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: list[str] | dict | str | None = None, input_format: list[str] | dict | str | None = None, creation_option: list[str] | dict | str | None = None, extent: list[float] | float | None = None, resolution: list[float] | float | None = None, size: list[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: list[str] | dict | str | None = None, sql: str | None = None, bbox: list[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, power: float | None = None, smoothing: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, max_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def invdist(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: List[str] | dict | str | None = None, input_format: List[str] | dict | str | None = None, creation_option: List[str] | dict | str | None = None, extent: List[float] | float | None = None, resolution: List[float] | float | None = None, size: List[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: List[str] | dict | str | None = None, sql: str | None = None, bbox: List[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, power: float | None = None, smoothing: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, max_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create a regular grid from scattered points using weighted inverse distance interpolation.
 
        Consult https://gdal.org/programs/gdal_vector_grid.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input vector datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output raster dataset
@@ -342,17 +336,17 @@ def invdist(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
        output_format: Optional[str]=None
            Aliases: format
            Output format
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input_format: Optional[Union[list[str], dict, str]]=None
+       input_format: Optional[Union[List[str], dict, str]]=None
            Input formats
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Creation option
-       extent: Optional[Union[list[float], float]]=None
+       extent: Optional[Union[List[float], float]]=None
            Set the target georeferenced extent
-       resolution: Optional[Union[list[float], float]]=None
+       resolution: Optional[Union[List[float], float]]=None
            Set the target resolution
-       size: Optional[Union[list[int], int]]=None
+       size: Optional[Union[List[int], int]]=None
            Set the target size in pixels and lines
        output_data_type: Optional[str]=None
            Aliases: datatype
@@ -361,12 +355,12 @@ def invdist(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
            Override the projection for the output file
        overwrite: Optional[bool]=None
            Whether overwriting existing output dataset is allowed
-       input_layer: Optional[Union[list[str], dict, str]]=None
+       input_layer: Optional[Union[List[str], dict, str]]=None
            Aliases: layer
            Input layer name
        sql: Optional[str]=None
            SQL statement
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Select only points contained within the specified bounding box
        zfield: Optional[str]=None
            Field name from which to get Z values.
@@ -409,17 +403,15 @@ def invdist(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
     """
     ...
 
- 
 
-
-def invdistnn(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: list[str] | dict | str | None = None, input_format: list[str] | dict | str | None = None, creation_option: list[str] | dict | str | None = None, extent: list[float] | float | None = None, resolution: list[float] | float | None = None, size: list[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: list[str] | dict | str | None = None, sql: str | None = None, bbox: list[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, power: float | None = None, smoothing: float | None = None, radius: float | None = None, min_points: int | None = None, max_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def invdistnn(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: List[str] | dict | str | None = None, input_format: List[str] | dict | str | None = None, creation_option: List[str] | dict | str | None = None, extent: List[float] | float | None = None, resolution: List[float] | float | None = None, size: List[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: List[str] | dict | str | None = None, sql: str | None = None, bbox: List[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, power: float | None = None, smoothing: float | None = None, radius: float | None = None, min_points: int | None = None, max_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create a regular grid from scattered points using weighted inverse distance interpolation nearest neighbour.
 
        Consult https://gdal.org/programs/gdal_vector_grid.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input vector datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output raster dataset
@@ -428,17 +420,17 @@ def invdistnn(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str
        output_format: Optional[str]=None
            Aliases: format
            Output format
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input_format: Optional[Union[list[str], dict, str]]=None
+       input_format: Optional[Union[List[str], dict, str]]=None
            Input formats
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Creation option
-       extent: Optional[Union[list[float], float]]=None
+       extent: Optional[Union[List[float], float]]=None
            Set the target georeferenced extent
-       resolution: Optional[Union[list[float], float]]=None
+       resolution: Optional[Union[List[float], float]]=None
            Set the target resolution
-       size: Optional[Union[list[int], int]]=None
+       size: Optional[Union[List[int], int]]=None
            Set the target size in pixels and lines
        output_data_type: Optional[str]=None
            Aliases: datatype
@@ -447,12 +439,12 @@ def invdistnn(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str
            Override the projection for the output file
        overwrite: Optional[bool]=None
            Whether overwriting existing output dataset is allowed
-       input_layer: Optional[Union[list[str], dict, str]]=None
+       input_layer: Optional[Union[List[str], dict, str]]=None
            Aliases: layer
            Input layer name
        sql: Optional[str]=None
            SQL statement
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Select only points contained within the specified bounding box
        zfield: Optional[str]=None
            Field name from which to get Z values.
@@ -489,17 +481,15 @@ def invdistnn(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str
     """
     ...
 
- 
 
-
-def linear(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: list[str] | dict | str | None = None, input_format: list[str] | dict | str | None = None, creation_option: list[str] | dict | str | None = None, extent: list[float] | float | None = None, resolution: list[float] | float | None = None, size: list[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: list[str] | dict | str | None = None, sql: str | None = None, bbox: list[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def linear(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: List[str] | dict | str | None = None, input_format: List[str] | dict | str | None = None, creation_option: List[str] | dict | str | None = None, extent: List[float] | float | None = None, resolution: List[float] | float | None = None, size: List[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: List[str] | dict | str | None = None, sql: str | None = None, bbox: List[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create a regular grid from scattered points using linear/barycentric interpolation.
 
        Consult https://gdal.org/programs/gdal_vector_grid.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input vector datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output raster dataset
@@ -508,17 +498,17 @@ def linear(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]],
        output_format: Optional[str]=None
            Aliases: format
            Output format
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input_format: Optional[Union[list[str], dict, str]]=None
+       input_format: Optional[Union[List[str], dict, str]]=None
            Input formats
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Creation option
-       extent: Optional[Union[list[float], float]]=None
+       extent: Optional[Union[List[float], float]]=None
            Set the target georeferenced extent
-       resolution: Optional[Union[list[float], float]]=None
+       resolution: Optional[Union[List[float], float]]=None
            Set the target resolution
-       size: Optional[Union[list[int], int]]=None
+       size: Optional[Union[List[int], int]]=None
            Set the target size in pixels and lines
        output_data_type: Optional[str]=None
            Aliases: datatype
@@ -527,12 +517,12 @@ def linear(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]],
            Override the projection for the output file
        overwrite: Optional[bool]=None
            Whether overwriting existing output dataset is allowed
-       input_layer: Optional[Union[list[str], dict, str]]=None
+       input_layer: Optional[Union[List[str], dict, str]]=None
            Aliases: layer
            Input layer name
        sql: Optional[str]=None
            SQL statement
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Select only points contained within the specified bounding box
        zfield: Optional[str]=None
            Field name from which to get Z values.
@@ -557,17 +547,15 @@ def linear(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]],
     """
     ...
 
- 
 
-
-def maximum(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: list[str] | dict | str | None = None, input_format: list[str] | dict | str | None = None, creation_option: list[str] | dict | str | None = None, extent: list[float] | float | None = None, resolution: list[float] | float | None = None, size: list[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: list[str] | dict | str | None = None, sql: str | None = None, bbox: list[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def maximum(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: List[str] | dict | str | None = None, input_format: List[str] | dict | str | None = None, creation_option: List[str] | dict | str | None = None, extent: List[float] | float | None = None, resolution: List[float] | float | None = None, size: List[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: List[str] | dict | str | None = None, sql: str | None = None, bbox: List[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create a regular grid from scattered points using the maximum value in the search ellipse.
 
        Consult https://gdal.org/programs/gdal_vector_grid.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input vector datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output raster dataset
@@ -576,17 +564,17 @@ def maximum(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
        output_format: Optional[str]=None
            Aliases: format
            Output format
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input_format: Optional[Union[list[str], dict, str]]=None
+       input_format: Optional[Union[List[str], dict, str]]=None
            Input formats
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Creation option
-       extent: Optional[Union[list[float], float]]=None
+       extent: Optional[Union[List[float], float]]=None
            Set the target georeferenced extent
-       resolution: Optional[Union[list[float], float]]=None
+       resolution: Optional[Union[List[float], float]]=None
            Set the target resolution
-       size: Optional[Union[list[int], int]]=None
+       size: Optional[Union[List[int], int]]=None
            Set the target size in pixels and lines
        output_data_type: Optional[str]=None
            Aliases: datatype
@@ -595,12 +583,12 @@ def maximum(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
            Override the projection for the output file
        overwrite: Optional[bool]=None
            Whether overwriting existing output dataset is allowed
-       input_layer: Optional[Union[list[str], dict, str]]=None
+       input_layer: Optional[Union[List[str], dict, str]]=None
            Aliases: layer
            Input layer name
        sql: Optional[str]=None
            SQL statement
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Select only points contained within the specified bounding box
        zfield: Optional[str]=None
            Field name from which to get Z values.
@@ -637,17 +625,15 @@ def maximum(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
     """
     ...
 
- 
 
-
-def minimum(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: list[str] | dict | str | None = None, input_format: list[str] | dict | str | None = None, creation_option: list[str] | dict | str | None = None, extent: list[float] | float | None = None, resolution: list[float] | float | None = None, size: list[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: list[str] | dict | str | None = None, sql: str | None = None, bbox: list[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def minimum(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: List[str] | dict | str | None = None, input_format: List[str] | dict | str | None = None, creation_option: List[str] | dict | str | None = None, extent: List[float] | float | None = None, resolution: List[float] | float | None = None, size: List[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: List[str] | dict | str | None = None, sql: str | None = None, bbox: List[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create a regular grid from scattered points using the minimum value in the search ellipse.
 
        Consult https://gdal.org/programs/gdal_vector_grid.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input vector datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output raster dataset
@@ -656,17 +642,17 @@ def minimum(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
        output_format: Optional[str]=None
            Aliases: format
            Output format
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input_format: Optional[Union[list[str], dict, str]]=None
+       input_format: Optional[Union[List[str], dict, str]]=None
            Input formats
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Creation option
-       extent: Optional[Union[list[float], float]]=None
+       extent: Optional[Union[List[float], float]]=None
            Set the target georeferenced extent
-       resolution: Optional[Union[list[float], float]]=None
+       resolution: Optional[Union[List[float], float]]=None
            Set the target resolution
-       size: Optional[Union[list[int], int]]=None
+       size: Optional[Union[List[int], int]]=None
            Set the target size in pixels and lines
        output_data_type: Optional[str]=None
            Aliases: datatype
@@ -675,12 +661,12 @@ def minimum(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
            Override the projection for the output file
        overwrite: Optional[bool]=None
            Whether overwriting existing output dataset is allowed
-       input_layer: Optional[Union[list[str], dict, str]]=None
+       input_layer: Optional[Union[List[str], dict, str]]=None
            Aliases: layer
            Input layer name
        sql: Optional[str]=None
            SQL statement
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Select only points contained within the specified bounding box
        zfield: Optional[str]=None
            Field name from which to get Z values.
@@ -717,17 +703,15 @@ def minimum(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
     """
     ...
 
- 
 
-
-def nearest(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: list[str] | dict | str | None = None, input_format: list[str] | dict | str | None = None, creation_option: list[str] | dict | str | None = None, extent: list[float] | float | None = None, resolution: list[float] | float | None = None, size: list[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: list[str] | dict | str | None = None, sql: str | None = None, bbox: list[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def nearest(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: List[str] | dict | str | None = None, input_format: List[str] | dict | str | None = None, creation_option: List[str] | dict | str | None = None, extent: List[float] | float | None = None, resolution: List[float] | float | None = None, size: List[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: List[str] | dict | str | None = None, sql: str | None = None, bbox: List[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create a regular grid from scattered points using nearest neighbor interpolation.
 
        Consult https://gdal.org/programs/gdal_vector_grid.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input vector datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output raster dataset
@@ -736,17 +720,17 @@ def nearest(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
        output_format: Optional[str]=None
            Aliases: format
            Output format
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input_format: Optional[Union[list[str], dict, str]]=None
+       input_format: Optional[Union[List[str], dict, str]]=None
            Input formats
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Creation option
-       extent: Optional[Union[list[float], float]]=None
+       extent: Optional[Union[List[float], float]]=None
            Set the target georeferenced extent
-       resolution: Optional[Union[list[float], float]]=None
+       resolution: Optional[Union[List[float], float]]=None
            Set the target resolution
-       size: Optional[Union[list[int], int]]=None
+       size: Optional[Union[List[int], int]]=None
            Set the target size in pixels and lines
        output_data_type: Optional[str]=None
            Aliases: datatype
@@ -755,12 +739,12 @@ def nearest(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
            Override the projection for the output file
        overwrite: Optional[bool]=None
            Whether overwriting existing output dataset is allowed
-       input_layer: Optional[Union[list[str], dict, str]]=None
+       input_layer: Optional[Union[List[str], dict, str]]=None
            Aliases: layer
            Input layer name
        sql: Optional[str]=None
            SQL statement
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Select only points contained within the specified bounding box
        zfield: Optional[str]=None
            Field name from which to get Z values.
@@ -791,17 +775,15 @@ def nearest(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]]
     """
     ...
 
- 
 
-
-def range(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: list[str] | dict | str | None = None, input_format: list[str] | dict | str | None = None, creation_option: list[str] | dict | str | None = None, extent: list[float] | float | None = None, resolution: list[float] | float | None = None, size: list[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: list[str] | dict | str | None = None, sql: str | None = None, bbox: list[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def range(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, output_format: str | None = None, open_option: List[str] | dict | str | None = None, input_format: List[str] | dict | str | None = None, creation_option: List[str] | dict | str | None = None, extent: List[float] | float | None = None, resolution: List[float] | float | None = None, size: List[int] | int | None = None, output_data_type: str | None = None, crs: str | None = None, overwrite: bool | None = None, input_layer: List[str] | dict | str | None = None, sql: str | None = None, bbox: List[float] | float | None = None, zfield: str | None = None, zoffset: float | None = None, zmultiply: float | None = None, radius: float | None = None, radius1: float | None = None, radius2: float | None = None, angle: float | None = None, min_points: int | None = None, min_points_per_quadrant: int | None = None, max_points_per_quadrant: int | None = None, nodata: float | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create a regular grid from scattered points using the difference between the minimum and maximum values in the search ellipse.
 
        Consult https://gdal.org/programs/gdal_vector_grid.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input vector datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output raster dataset
@@ -810,17 +792,17 @@ def range(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], 
        output_format: Optional[str]=None
            Aliases: format
            Output format
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input_format: Optional[Union[list[str], dict, str]]=None
+       input_format: Optional[Union[List[str], dict, str]]=None
            Input formats
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Creation option
-       extent: Optional[Union[list[float], float]]=None
+       extent: Optional[Union[List[float], float]]=None
            Set the target georeferenced extent
-       resolution: Optional[Union[list[float], float]]=None
+       resolution: Optional[Union[List[float], float]]=None
            Set the target resolution
-       size: Optional[Union[list[int], int]]=None
+       size: Optional[Union[List[int], int]]=None
            Set the target size in pixels and lines
        output_data_type: Optional[str]=None
            Aliases: datatype
@@ -829,12 +811,12 @@ def range(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], 
            Override the projection for the output file
        overwrite: Optional[bool]=None
            Whether overwriting existing output dataset is allowed
-       input_layer: Optional[Union[list[str], dict, str]]=None
+       input_layer: Optional[Union[List[str], dict, str]]=None
            Aliases: layer
            Input layer name
        sql: Optional[str]=None
            SQL statement
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Select only points contained within the specified bounding box
        zfield: Optional[str]=None
            Field name from which to get Z values.
@@ -870,7 +852,5 @@ def range(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], 
 
     """
     ...
-
- 
 
 

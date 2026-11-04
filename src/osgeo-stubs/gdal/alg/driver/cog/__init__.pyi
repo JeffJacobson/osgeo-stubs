@@ -1,10 +1,12 @@
-# typings\osgeo\gdal\alg\driver\cog.pyi
-import osgeo.gdal
 import os
 from collections.abc import Callable
+from typing import List
+
+import osgeo.gdal
+from osgeo import gdal
 
 
-def validate(dataset: osgeo.gdal.Dataset | str | os.PathLike[str] | None = None, full_check: str | None = None, quiet: bool | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def validate(dataset: osgeo.gdal.Dataset | str | os.PathLike[str] | None = None, full_check: str | None = None, quiet: bool | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> str:
     """Validate if a TIFF file is a Cloud Optimized GeoTIFF
 
        Consult https://gdal.org/programs/gdal_driver_cog_validate.html for more details.
@@ -30,7 +32,5 @@ def validate(dataset: osgeo.gdal.Dataset | str | os.PathLike[str] | None = None,
 
     """
     ...
-
- 
 
 

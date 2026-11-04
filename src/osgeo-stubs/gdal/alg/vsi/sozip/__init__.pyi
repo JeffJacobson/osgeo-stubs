@@ -1,17 +1,19 @@
-# typings\osgeo\gdal\alg\vsi\sozip.pyi
-import osgeo.gdal
 import os
 from collections.abc import Callable
+from typing import List
+
+import osgeo.gdal
+from osgeo import gdal
 
 
-def create(input: list[str] | dict | str, output: str, quiet: bool | None = None, overwrite: bool | None = None, recursive: bool | None = None, no_paths: bool | None = None, enable_sozip: str | None = None, sozip_chunk_size: str | None = None, sozip_min_file_size: str | None = None, content_type: str | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def create(input: List[str] | dict | str, output: str, quiet: bool | None = None, overwrite: bool | None = None, recursive: bool | None = None, no_paths: bool | None = None, enable_sozip: str | None = None, sozip_chunk_size: str | None = None, sozip_min_file_size: str | None = None, content_type: str | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> str:
     """Create a Seek-optimized ZIP (SOZIP) file.
 
        Consult https://gdal.org/programs/gdal_vsi_sozip.html for more details.
 
        Parameters
        ----------
-       input: Union[list[str], dict, str]
+       input: Union[List[str], dict, str]
            Input filenames
        output: str
            Output ZIP filename
@@ -45,11 +47,9 @@ def create(input: list[str] | dict | str, output: str, quiet: bool | None = None
     """
     ...
 
- 
 
-
-def list(input: str | os.PathLike[str], progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
-    """list content of a ZIP file, with SOZIP related information.
+def list(input: str | os.PathLike[str], progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> str:
+    """List content of a ZIP file, with SOZIP related information.
 
        Consult https://gdal.org/programs/gdal_vsi_sozip.html for more details.
 
@@ -70,17 +70,15 @@ def list(input: str | os.PathLike[str], progress: Callable[[float, str, object],
     """
     ...
 
- 
 
-
-def optimize(input: list[str] | dict | str, output: str, quiet: bool | None = None, overwrite: bool | None = None, enable_sozip: str | None = None, sozip_chunk_size: str | None = None, sozip_min_file_size: str | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def optimize(input: List[str] | dict | str, output: str, quiet: bool | None = None, overwrite: bool | None = None, enable_sozip: str | None = None, sozip_chunk_size: str | None = None, sozip_min_file_size: str | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> str:
     """Create a Seek-optimized ZIP (SOZIP) file from a regular ZIP file.
 
        Consult https://gdal.org/programs/gdal_vsi_sozip.html for more details.
 
        Parameters
        ----------
-       input: Union[list[str], dict, str]
+       input: Union[List[str], dict, str]
            Input ZIP filename
        output: str
            Output ZIP filename
@@ -107,10 +105,8 @@ def optimize(input: list[str] | dict | str, output: str, quiet: bool | None = No
     """
     ...
 
- 
 
-
-def validate(input: str | os.PathLike[str], progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def validate(input: str | os.PathLike[str], progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> str:
     """Validate a ZIP file, possibly using SOZIP optimization.
 
        Consult https://gdal.org/programs/gdal_vsi_sozip.html for more details.
@@ -131,7 +127,5 @@ def validate(input: str | os.PathLike[str], progress: Callable[[float, str, obje
 
     """
     ...
-
- 
 
 

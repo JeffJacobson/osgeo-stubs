@@ -1,7 +1,9 @@
-# typings\osgeo\gdal\alg\driver\rpftoc.pyi
-import osgeo.gdal
 import os
 from collections.abc import Callable
+from typing import List
+
+import osgeo.gdal
+from osgeo import gdal
 
 
 def create(input: str | os.PathLike[str], output: str | None = None, scale: int | None = None, producer_id: str | None = None, producer_name: str | None = None, country_code: str | None = None, classification: str | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
@@ -35,7 +37,5 @@ def create(input: str | os.PathLike[str], output: str | None = None, scale: int 
 
     """
     ...
-
- 
 
 

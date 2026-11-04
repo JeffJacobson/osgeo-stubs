@@ -7,18 +7,19 @@ and files renamed and moved.
 This would go beyond what alg_types.py does, also working with osgeo.
 """
 
-from collections.abc import Callable, Generator
 import dataclasses
-import importlib
 import inspect
-from itertools import groupby
+import re
+from collections.abc import Callable, Generator
 from pathlib import Path
 from types import ModuleType
-from typing import Annotated, Any, NamedTuple
+from typing import Annotated, Any, NamedTuple, cast
 
+import rich
 import typer
-from rich.console import Console
-from rich.table import Table
+from osgeo.gdal import alg # pyright: ignore[reportMissingModuleSource]
+
+alg = cast(ModuleType, alg)
 
 _APP = typer.Typer()
 
@@ -43,13 +44,53 @@ def predicate(value: Any) -> bool:
     return True
 
 
+def find_output_type_in_doc(s: str):
+    """
+    >>> s = '''
+    ... Output parameters
+    ... -----------------
+    ... output: gdal.ArgDatasetValue
+    ...     Output vector dataset
+    ... '''
+    >>> t = find_output_type_in_doc(s)
+    >>> print(t)
+    gdal.ArgDatasetValue
+    >>> s = '''
+    ...    Output parameters
+    ...    -----------------
+    ...    return_code: int
+    ...        Return code
+    ... '''
+    >>> t = find_output_type_in_doc(s)
+    >>> print(t)
+    int
+    """
+
+    # TODO: Handle multiple outputs
+    #    Output parameters
+    #    -----------------
+    #    output: gdal.ArgDatasetValue
+    #        Output vector dataset
+    #    output_string: str
+    #        Output string, in which the result is placed
+
+    pattern = re.compile(r"\s*Output parameters\n\s*-+\n\s*\w+: (?P<type>\S+)")
+    m = pattern.search(s)
+    if not m:
+        return None
+    else:
+        output = m[1]
+        output = cast(str, output)
+        return output
+
+
 def format_callable(c: Callable) -> str:
     """Write type stub for a callable.
 
     TODO: The signatures of the osgeo functions (except for the osgeo.gdal.alg)
     do not have type definitions. However their docstrings DO list the types
     (but sometimes C++ types rather than Python types).
-    
+
     We need to:
     * Detect if the docstring contains a signature. (Not all do.)
     * Extract the signatures in the docstring
@@ -64,6 +105,12 @@ def format_callable(c: Callable) -> str:
     # Replace if a return time is in the signature.
     if isinstance(signature, inspect.Signature) and not signature.empty:
         return_type_string = signature.return_annotation
+    # If we haven't determined the output type yet, try to extract it from the docstring
+    if return_type_string == "..." and doc:
+        extracted_output_type = find_output_type_in_doc(doc)
+        if extracted_output_type:
+            return_type_string = extracted_output_type
+
     current_text = f'''def {name}{signature} -> {return_type_string}:
     """{doc}
     """
@@ -73,12 +120,32 @@ def format_callable(c: Callable) -> str:
 
     return current_text
 
-def format_value(value: Any, name: str):
-    if callable(value):
+
+def format_class(value: type[Any]):
+    # class_members = inspect.getmembers_static(value)
+
+    # def indent_lines(s: str, indent: int):
+    #     lines = s.splitlines()
+
+    # formatted_members = (
+    #     format_value(current_value, current_name)
+    #     for current_name, current_value in class_members:
+    #         pass
+    # )
+
+    raise NotImplementedError()
+
+
+def format_value(value: Any, name: str) -> str:
+    if inspect.isclass(value):
+        # return format_class(value)
+        pass
+    elif callable(value):
         return format_callable(value)
-    if isinstance(value, int | float | str | bool):
+    elif isinstance(value, int | float | str | bool):
         return f"{name} = Literal[{repr(value)}]"
     return repr(value)
+
 
 class MemberInfoRenderables(NamedTuple):
     path: str
@@ -88,10 +155,11 @@ class MemberInfoRenderables(NamedTuple):
     name: str
     value: str
 
+
 @dataclasses.dataclass()
 class MemberInfo:
-    """Represents information about a module member.
-    """
+    """Represents information about a module member."""
+
     path: Path
     package: str | None
     module: ModuleType
@@ -99,7 +167,7 @@ class MemberInfo:
     value: Any
 
     def as_renderables(self):
-        """Returns properties as a tuple of values that are 
+        """Returns properties as a tuple of values that are
         renderable by a `rich.tables.Table`.
         """
         return MemberInfoRenderables(
@@ -123,49 +191,85 @@ def enumerate_modules(
         if any(name.startswith(v) for v in ["_", "wrapper"]):
             continue
         if inspect.ismodule(value):
-            # if value.__package__ is not None:
-            #     continue
             yield from enumerate_modules(value, package)
         else:
             path = module.__name__.split(".")
             if path[0] != "osgeo":
                 path = ["osgeo", *path]
-            path = Path(*path) / "__init__.pyt"
+            path = Path(*path) / "__init__.pyi"
             yield MemberInfo(path, package, module, name, value)
 
 
+# def get_module(module_name: str):
+#     name_parts = module_name.split(".")
+#     failed_parts: list[str] = []
+#     the_module: ModuleType | None = None
+#     while not the_module or name_parts:
+#         try:
+#             the_module = importlib.import_module(module_name)
+#         except ImportError as ierr:
+#             failed_parts.append(name_parts.pop())
+#             module_name = ".".join(name_parts)
+
+#     return the_module
+
+
 @_APP.command()
-def list_modules(package_name: Annotated[str, typer.Argument()]):
-    m = importlib.import_module(package_name)
-    g = groupby(enumerate_modules(m, m.__package__), key=lambda x: x.path)
+def list_modules(
+    # modules: Annotated[list[ModuleType], typer.Argument(callback=get_module)] = [alg],
+    out_dir: Annotated[Path, typer.Argument(file_okay=False)] = Path("temp"),
+):
+    # g = groupby(enumerate_modules(m, m.__package__), key=lambda x: x.path)
 
     d: dict[Path, list[MemberInfo]] = {}
 
-    for group_key, group_items in g:
-        current_list = d.get(group_key)
+    current_module = alg
+
+    for member_info in enumerate_modules(
+        current_module, current_module.__package__
+    ):
+        stub_path = member_info.path
+        current_list = d.get(stub_path)
         if current_list is None:
-            d[group_key] = [*group_items]
-        else:
-            for gi in group_items:
-                current_list.append(gi)
+            current_list = d[stub_path] = []
+        current_list.append(member_info)
 
-    with Console() as c, c.pager(styles=True, links=True):
-        for module_path, info_list in d.items():
-            table = Table(
-                # "path",
-                "package",
-                "module",
-                "type"
-                "name",
-                "value",
-                caption=str(module_path)
-            )
+    import_header = """import os
+from collections.abc import Callable
+from typing import List
 
-            for info in info_list:
-                # Add row, skipping the "path" item in the tuple.
-                table.add_row(*info.as_renderables()[1:])
+import osgeo.gdal
+from osgeo import gdal"""
 
-            c.print(table)
+    for stub_path, member_infos in d.items():
+        stub_path = out_dir / stub_path
+        # Create the parent directory if it does not already exist
+        stub_path.parent.mkdir(parents=True, exist_ok=True)
+        # Open the file and write to it.
+        print(f"Writing {stub_path}")
+        with stub_path.open("wt+") as f:
+            print(import_header, "\n", sep="\n", file=f)
+            for mi in member_infos:
+                text = format_value(mi.value, mi.name)
+                print(text, file=f)
+
+    # with Console() as c, c.pager(styles=True, links=True):
+    #     for module_path, info_list in d.items():
+    #         table = Table(
+    #             "path",
+    #             "package",
+    #             "module",
+    #             "type"
+    #             "name",
+    #             "value",
+    #             caption=str(module_path)
+    #         )
+
+    #         for info in info_list:
+    #             # Add row, skipping the "path" item in the tuple.
+    #             table.add_row(*info.as_renderables())
+
+    #         c.print(table)
 
     # table = Table("Package", "Module", "Name", "Value")
     # for p, module, name, value in enumerate_modules(m, m.__package__):

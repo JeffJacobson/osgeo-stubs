@@ -1,7 +1,9 @@
-# typings\osgeo\gdal\alg\driver\gpkg.pyi
-import osgeo.gdal
 import os
 from collections.abc import Callable
+from typing import List
+
+import osgeo.gdal
+from osgeo import gdal
 
 
 def repack(dataset: osgeo.gdal.Dataset | str | os.PathLike[str], progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
@@ -24,10 +26,8 @@ def repack(dataset: osgeo.gdal.Dataset | str | os.PathLike[str], progress: Calla
     """
     ...
 
- 
 
-
-def validate(dataset: osgeo.gdal.Dataset | str | os.PathLike[str], full_check: bool | None = None, verbose: bool | None = None, quiet: bool | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def validate(dataset: osgeo.gdal.Dataset | str | os.PathLike[str], full_check: bool | None = None, verbose: bool | None = None, quiet: bool | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> str:
     """Validate conformance of a GeoPackage dataset against the GeoPackage specification
 
        Consult https://gdal.org/programs/gdal_driver_gpkg_validate.html for more details.
@@ -54,7 +54,5 @@ def validate(dataset: osgeo.gdal.Dataset | str | os.PathLike[str], full_check: b
 
     """
     ...
-
- 
 
 

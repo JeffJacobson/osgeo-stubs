@@ -1,10 +1,12 @@
-# typings\osgeo\gdal\alg\raster\overview.pyi
-import osgeo.gdal
 import os
 from collections.abc import Callable
+from typing import List
+
+import osgeo.gdal
+from osgeo import gdal
 
 
-def add(quiet: bool | None = None, open_option: list[str] | dict | str | None = None, input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]] | None = None, overview_src: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]] | None = None, external: bool | None = None, resampling: str | None = None, levels: list[int] | int | None = None, min_size: int | None = None, creation_option: list[str] | dict | str | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def add(quiet: bool | None = None, open_option: List[str] | dict | str | None = None, input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]] | None = None, overview_src: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]] | None = None, external: bool | None = None, resampling: str | None = None, levels: List[int] | int | None = None, min_size: int | None = None, creation_option: List[str] | dict | str | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
     """Adding overviews.
 
        Consult https://gdal.org/programs/gdal_raster_overview_add.html for more details.
@@ -13,22 +15,22 @@ def add(quiet: bool | None = None, open_option: list[str] | dict | str | None = 
        ----------
        quiet: Optional[bool]=None
            Quiet mode (no progress bar or warning message)
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Aliases: dataset
            Dataset (to be updated in-place, unless --external)
-       overview_src: Optional[Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]]=None
+       overview_src: Optional[Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]]=None
            Source overview dataset
        external: Optional[bool]=None
            Add external overviews
        resampling: Optional[str]=None
            Resampling method
-       levels: Optional[Union[list[int], int]]=None
+       levels: Optional[Union[List[int], int]]=None
            Levels / decimation factors
        min_size: Optional[int]=None
            Maximum width or height of the smallest overview level.
-       creation_option: Optional[Union[list[str], dict, str]]=None
+       creation_option: Optional[Union[List[str], dict, str]]=None
            Overview creation option
        progress: Optional[Callable[[float, str, object], bool]]=None
            Progress callback
@@ -41,10 +43,8 @@ def add(quiet: bool | None = None, open_option: list[str] | dict | str | None = 
     """
     ...
 
- 
 
-
-def delete(quiet: bool | None = None, open_option: list[str] | dict | str | None = None, input: osgeo.gdal.Dataset | str | os.PathLike[str] | None = None, external: bool | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def delete(quiet: bool | None = None, open_option: List[str] | dict | str | None = None, input: osgeo.gdal.Dataset | str | os.PathLike[str] | None = None, external: bool | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
     """Deleting overviews.
 
        Consult https://gdal.org/programs/gdal_raster_overview_delete.html for more details.
@@ -53,7 +53,7 @@ def delete(quiet: bool | None = None, open_option: list[str] | dict | str | None
        ----------
        quiet: Optional[bool]=None
            Quiet mode (no progress bar or warning message)
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
        input: Union[gdal.Dataset, str, os.PathLike[str]]
            Aliases: dataset
@@ -71,10 +71,8 @@ def delete(quiet: bool | None = None, open_option: list[str] | dict | str | None
     """
     ...
 
- 
 
-
-def refresh(quiet: bool | None = None, open_option: list[str] | dict | str | None = None, input: osgeo.gdal.Dataset | str | os.PathLike[str] | None = None, external: bool | None = None, resampling: str | None = None, levels: list[int] | int | None = None, bbox: list[float] | float | None = None, like: list[str] | dict | str | None = None, use_source_timestamp: bool | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def refresh(quiet: bool | None = None, open_option: List[str] | dict | str | None = None, input: osgeo.gdal.Dataset | str | os.PathLike[str] | None = None, external: bool | None = None, resampling: str | None = None, levels: List[int] | int | None = None, bbox: List[float] | float | None = None, like: List[str] | dict | str | None = None, use_source_timestamp: bool | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
     """Refresh overviews.
 
        Consult https://gdal.org/programs/gdal_raster_overview_refresh.html for more details.
@@ -83,7 +81,7 @@ def refresh(quiet: bool | None = None, open_option: list[str] | dict | str | Non
        ----------
        quiet: Optional[bool]=None
            Quiet mode (no progress bar or warning message)
-       open_option: Optional[Union[list[str], dict, str]]=None
+       open_option: Optional[Union[List[str], dict, str]]=None
            Open options
        input: Union[gdal.Dataset, str, os.PathLike[str]]
            Aliases: dataset
@@ -92,11 +90,11 @@ def refresh(quiet: bool | None = None, open_option: list[str] | dict | str | Non
            Refresh external overviews
        resampling: Optional[str]=None
            Resampling method
-       levels: Optional[Union[list[int], int]]=None
+       levels: Optional[Union[List[int], int]]=None
            Levels / decimation factors
-       bbox: Optional[Union[list[float], float]]=None
+       bbox: Optional[Union[List[float], float]]=None
            Bounding box to refresh
-       like: Optional[Union[list[str], dict, str]]=None
+       like: Optional[Union[List[str], dict, str]]=None
            Use extent of dataset(s)
        use_source_timestamp: Optional[bool]=None
            Use timestamp of VRT or GTI sources as refresh criterion
@@ -110,7 +108,5 @@ def refresh(quiet: bool | None = None, open_option: list[str] | dict | str | Non
 
     """
     ...
-
- 
 
 

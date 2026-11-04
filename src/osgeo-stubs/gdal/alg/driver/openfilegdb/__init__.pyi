@@ -1,7 +1,9 @@
-# typings\osgeo\gdal\alg\driver\openfilegdb.pyi
-import osgeo.gdal
 import os
 from collections.abc import Callable
+from typing import List
+
+import osgeo.gdal
+from osgeo import gdal
 
 
 def repack(dataset: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
@@ -25,7 +27,5 @@ def repack(dataset: osgeo.gdal.Dataset | str | os.PathLike[str], quiet: bool | N
 
     """
     ...
-
- 
 
 

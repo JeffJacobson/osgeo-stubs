@@ -1,17 +1,19 @@
-# typings\osgeo\gdal\alg\driver\parquet.pyi
-import osgeo.gdal
 import os
 from collections.abc import Callable
+from typing import List
+
+import osgeo.gdal
+from osgeo import gdal
 
 
-def create_metadata_file(input: list[osgeo.gdal.Dataset] | list[str] | list[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], overwrite: bool | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> ...:
+def create_metadata_file(input: List[osgeo.gdal.Dataset] | List[str] | List[os.PathLike[str]], output: osgeo.gdal.Dataset | str | os.PathLike[str], overwrite: bool | None = None, progress: Callable[[float, str, object], bool] | None = None, **kwargs) -> gdal.ArgDatasetValue:
     """Create the _metadata file for a partitioned Parquet dataset
 
        Consult https://gdal.org/programs/gdal_driver_parquet_create_metadata_file.html for more details.
 
        Parameters
        ----------
-       input: Union[list[gdal.Dataset], list[str], list[os.PathLike[str]]]
+       input: Union[List[gdal.Dataset], List[str], List[os.PathLike[str]]]
            Input Parquet datasets
        output: Union[gdal.Dataset, str, os.PathLike[str]]
            Output Parquet dataset
@@ -29,7 +31,5 @@ def create_metadata_file(input: list[osgeo.gdal.Dataset] | list[str] | list[os.P
 
     """
     ...
-
- 
 
 
