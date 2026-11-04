@@ -14,7 +14,7 @@ from io import BytesIO
 from typing import Any, Callable, Literal, MutableSequence
 
 from osgeo import ogr
-from osgeo.ogr import Layer, OGRwkbGeometryType
+from osgeo.ogr import Layer, OGRwkbGeometryType, wkbUnknown
 from osgeo.osr import SpatialReference
 import numpy as np
 
@@ -705,7 +705,7 @@ def VectorInfo(
     ds: Dataset | str,
     options: GDALVectorInfoOptions | None = None,
     **kwargs: dict[str, Any],
-) -> ...:
+) -> str | dict:
     """Return information on a vector dataset.
 
     Parameters
@@ -1611,7 +1611,9 @@ def ContourOptions(
     """
     ...
 
-def Contour(destNameOrDestDS: str | Dataset, srcDS: str | Dataset, **kwargs:...) -> ...:
+def Contour(
+    destNameOrDestDS: str | Dataset, srcDS: str | Dataset, **kwargs: ...
+) -> ...:
     """Create contour lines or polygons from raster data.
 
     Parameters
@@ -1736,7 +1738,7 @@ def RasterizeOptions(
     """
     ...
 
-def Rasterize(destNameOrDestDS: str | Dataset, srcDS: str | Dataset, **kwargs)->...:
+def Rasterize(destNameOrDestDS: str | Dataset, srcDS: str | Dataset, **kwargs) -> ...:
     """Burns vector geometries into a raster
 
     Parameters
@@ -2288,8 +2290,8 @@ class VSIFile(BytesIO):
     def close(self) -> None: ...
     def read(self, size: ... = ...):  # -> bytes | Any:
         ...
-    def write(self, x) -> None: ...
-    def seek(self, offset, whence: ... = ...) -> None:
+    def write(self, x) -> int: ...
+    def seek(self, offset: int, whence: int = ...) -> int:
         """Change stream position.
 
         Seek to byte offset pos relative to position indicated by whence:
@@ -3059,7 +3061,7 @@ class Driver(MajorObject):
         src: Dataset,
         strict: bool = True,
         options: list[str] | dict[str, str] | None = None,
-        callback: Callable[..., ...] = 0,
+        callback: Callable | None = None,
         callback_data: Any = None,
     ) -> Dataset:
         r"""
@@ -3942,10 +3944,6 @@ class Dataset(MajorObject):
         """
         ...
 
-    def WriteRaster(self, *args, **kwargs):
-        r"""WriteRaster(self, xoff, yoff, xsize, ysize, buf_len, buf_xsize=None, buf_ysize=None, buf_type=None, band_list=0, buf_pixel_space=None, buf_line_space=None, buf_band_space=None) -> CPLErr"""
-        ...
-
     def AdviseRead(self, *args, **kwargs):
         r"""
         AdviseRead(self, xoff, yoff, xsize, ysize, buf_xsize=None, buf_ysize=None, buf_type=None, band_list=0, options=None) -> CPLErr
@@ -3957,10 +3955,6 @@ class Dataset(MajorObject):
 
 
         """
-        ...
-
-    def BeginAsyncReader(self, *args, **kwargs):
-        r"""BeginAsyncReader(self, xOff, yOff, xSize, ySize, buf_len, buf_xsize, buf_ysize, bufType=(GDALDataType) 0, band_list=0, nPixelSpace=0, nLineSpace=0, nBandSpace=0, options=None) -> AsyncReader"""
         ...
 
     def EndAsyncReader(self, *args):
@@ -4151,7 +4145,7 @@ class Dataset(MajorObject):
         self,
         name: str,
         srs: SpatialReference | None = None,
-        geom_type: OGRwkbGeometryType | int = OGRwkbGeometryType.wkbUnknown,
+        geom_type: OGRwkbGeometryType | int = wkbUnknown,
         options: dict[str, str] | list[str] | None = None,
     ) -> Layer:
         r"""
@@ -4201,7 +4195,7 @@ class Dataset(MajorObject):
         self,
         src_layer: Layer,
         new_name: str,
-        options: dict[str, str] | list[str] = None,
+        options: dict[str, str] | list[str] | None = None,
     ) -> Layer:
         r"""
         CopyLayer(self, src_layer, new_name, options=None) -> Layer
@@ -4226,10 +4220,6 @@ class Dataset(MajorObject):
             A layer if successful, or ``None`` if an error occurs.
 
         """
-        ...
-
-    def DeleteLayer(self, *args):
-        r"""DeleteLayer(self, index) -> OGRErr"""
         ...
 
     def IsLayerPrivate(self, *args):
@@ -5010,7 +5000,7 @@ class Dataset(MajorObject):
         buf_pixel_space: ... = ...,
         buf_line_space: ... = ...,
         buf_band_space: ... = ...,
-    )->...: ...
+    ) -> ...: ...
     def ReadRaster(
         self,
         xoff: ... = ...,
@@ -5456,10 +5446,6 @@ class RasterAttributeTable:
         r"""GetValueAsBoolean(self, iRow, iCol) -> bool"""
         ...
 
-    def GetValueAsDateTime(self, *args):
-        r"""GetValueAsDateTime(self, iRow, iCol) -> RATDateTime"""
-        ...
-
     def GetValueAsWKBGeometry(self, *args):
         r"""GetValueAsWKBGeometry(self, iRow, iCol) -> CPLErr"""
         ...
@@ -5648,10 +5634,6 @@ class RasterAttributeTable:
 
     def SetValueAsBoolean(self, *args):
         r"""SetValueAsBoolean(self, iRow, iCol, value)"""
-        ...
-
-    def SetValueAsDateTime(self, *args):
-        r"""SetValueAsDateTime(self, iRow, iCol, value)"""
         ...
 
     def SetRowCount(self, *args):
@@ -7505,7 +7487,6 @@ class Band(MajorObject):
 
         """
         ...
-    def WriteRaster(self, *args, **kwargs): ...
     def FlushCache(self, *args):
         r"""
         FlushCache(self)
@@ -9265,7 +9246,7 @@ class Algorithm:
     """
 
     thisown = ...
-    def __init__(self, *args, **kwargs) -> None: ...
+    # def __init__(self, *args, **kwargs) -> None: ...
 
     __repr__ = ...
     __swig_destroy__: int  # _gdal.delete_Algorithm
