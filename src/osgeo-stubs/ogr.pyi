@@ -97,6 +97,24 @@ GGT_COUNT_NOT_NEEDED: Literal[1]
 GGT_GEOMCOLLECTIONZ_TINZ: Literal[4]
 GGT_STOP_IF_MIXED: Literal[2]
 NullFID: Literal[-1]
+ODrCCreateDataSource: Literal["CreateDataSource"]
+ODrCDeleteDataSource: Literal["DeleteDataSource"]
+ODsCAddFieldDomain: Literal["AddFieldDomain"]
+ODsCAddRelationship: Literal["AddRelationship"]
+ODsCCreateGeomFieldAfterCreateLayer: Literal["CreateGeomFieldAfterCreateLayer"]
+ODsCCreateLayer: Literal["CreateLayer"]
+ODsCCurveGeometries: Literal["CurveGeometries"]
+ODsCDeleteFieldDomain: Literal["DeleteFieldDomain"]
+ODsCDeleteLayer: Literal["DeleteLayer"]
+ODsCDeleteRelationship: Literal["DeleteRelationship"]
+ODsCEmulatedTransactions: Literal["EmulatedTransactions"]
+ODsCMeasuredGeometries: Literal["MeasuredGeometries"]
+ODsCRandomLayerRead: Literal["RandomLayerRead"]
+ODsCRandomLayerWrite: Literal["RandomLayerWrite "]
+ODsCTransactions: Literal["Transactions"]
+ODsCUpdateFieldDomain: Literal["UpdateFieldDomain"]
+ODsCUpdateRelationship: Literal["UpdateRelationship"]
+ODsCZGeometries: Literal["ZGeometries"]
 OFDMP_DEFAULT_VALUE: Literal[0]
 OFDMP_GEOMETRY_WEIGHTED: Literal[2]
 OFDMP_SUM: Literal[1]
@@ -139,6 +157,33 @@ OGRERR_UNSUPPORTED_SRS: Literal[7]
 OJLeft: Literal[1]
 OJRight: Literal[2]
 OJUndefined: Literal[0]
+OLCAlterFieldDefn: Literal["AlterFieldDefn"]
+OLCAlterGeomFieldDefn: Literal["AlterGeomFieldDefn"]
+OLCCreateField: Literal["CreateField"]
+OLCCreateGeomField: Literal["CreateGeomField"]
+OLCCurveGeometries: Literal["CurveGeometries"]
+OLCDeleteFeature: Literal["DeleteFeature"]
+OLCDeleteField: Literal["DeleteField"]
+OLCFastFeatureCount: Literal["FastFeatureCount"]
+OLCFastGetArrowStream: Literal["FastGetArrowStream"]
+OLCFastGetExtent: Literal["FastGetExtent"]
+OLCFastGetExtent3D: Literal["FastGetExtent3D"]
+OLCFastSetNextByIndex: Literal["FastSetNextByIndex"]
+OLCFastSpatialFilter: Literal["FastSpatialFilter"]
+OLCFastWriteArrowBatch: Literal["FastWriteArrowBatch"]
+OLCIgnoreFields: Literal["IgnoreFields"]
+OLCMeasuredGeometries: Literal["MeasuredGeometries"]
+OLCRandomRead: Literal["RandomRead"]
+OLCRandomWrite: Literal["RandomWrite"]
+OLCRename: Literal["Rename"]
+OLCReorderFields: Literal["ReorderFields"]
+OLCSequentialWrite: Literal["SequentialWrite"]
+OLCStringsAsUTF8: Literal["StringsAsUTF8"]
+OLCTransactions: Literal["Transactions"]
+OLCUpdateFeature: Literal["UpdateFeature"]
+OLCUpsertFeature: Literal["UpsertFeature"]
+OLCZGeometries: Literal["ZGeometries"]
+OLMD_FID64: Literal["OLMD_FID64"]
 TZFLAG_LOCALTIME: Literal[1]
 TZFLAG_MIXED_TZ: Literal[2]
 TZFLAG_UNKNOWN: Literal[0]
@@ -2015,8 +2060,6 @@ class Feature:
 
         """
         ...
-
-    
 
     def GetFieldAsString(self, field: int | str) -> str:
         r"""
@@ -5690,7 +5733,7 @@ class Geometry:
         """
         ...
 
-    def CoordinateDimension(self, *args) -> Literal[2,3,4]:
+    def CoordinateDimension(self, *args) -> Literal[2, 3, 4]:
         r"""
         CoordinateDimension(self) -> int
 
@@ -6566,4 +6609,3 @@ def TermProgress_nocb(dfProgress, pszMessage=None, pData=None) -> int:
     ...
 
 TermProgress = ...
-

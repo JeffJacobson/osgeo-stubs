@@ -8,6 +8,7 @@ This would go beyond what alg_types.py does, also working with osgeo.
 """
 
 import dataclasses
+import importlib
 import inspect
 import re
 from collections.abc import Callable, Generator
@@ -16,9 +17,6 @@ from types import ModuleType
 from typing import Annotated, Any, NamedTuple, cast
 
 import typer
-from osgeo.gdal import alg  # pyright: ignore[reportMissingModuleSource]
-
-alg = cast(ModuleType, alg)
 
 _APP = typer.Typer()
 
@@ -144,8 +142,8 @@ def format_value(value: Any, name: str) -> str:
     elif callable(value):
         return format_callable(value)
     elif isinstance(value, int | float | str | bool):
-        return f"{name} = Literal[{repr(value)}]"
-    return repr(value)
+        return f"{name}: Literal[{repr(value)}]"
+    return f"# {repr(value)}"
 
 
 class MemberInfoRenderables(NamedTuple):
@@ -201,39 +199,54 @@ def enumerate_modules(
             yield MemberInfo(path, package, module, name, value)
 
 
-# def get_module(module_name: str):
-#     name_parts = module_name.split(".")
-#     failed_parts: list[str] = []
-#     the_module: ModuleType | None = None
-#     while not the_module or name_parts:
-#         try:
-#             the_module = importlib.import_module(module_name)
-#         except ImportError as ierr:
-#             failed_parts.append(name_parts.pop())
-#             module_name = ".".join(name_parts)
+def get_module(module_name: str):
+    return importlib.import_module(module_name)
+    # name_parts = module_name.split(".")
+    # failed_parts: list[str] = []
+    # the_module: ModuleType | None = None
+    # while not the_module or name_parts:
+    #     try:
+    #         the_module = importlib.import_module(module_name)
+    #     except ImportError as ierr:
+    #         failed_parts.append(name_parts.pop())
+    #         module_name = ".".join(name_parts)
 
-#     return the_module
+    # return the_module
+
+
+def module_default_factory():
+    # from osgeo import gdal, gdalconst, ogr, osr
+
+    # return [gdal, gdalconst, ogr, osr]
+    return [
+        "osgeo.gdal",
+        "osgeo.gdalconst",
+        "osgeo.ogr",
+        "osgeo.osr"
+    ]
 
 
 @_APP.command()
 def list_modules(
-    # modules: Annotated[list[ModuleType], typer.Argument(callback=get_module)] = [alg],
+    modules: Annotated[
+        list[ModuleType],
+        typer.Argument(parser=get_module, default_factory=module_default_factory),
+    ],
     out_dir: Annotated[Path, typer.Argument(file_okay=False)] = Path("temp"),
 ):
     # g = groupby(enumerate_modules(m, m.__package__), key=lambda x: x.path)
 
     d: dict[Path, list[MemberInfo]] = {}
 
-    current_module = alg
-
-    for member_info in enumerate_modules(
-        current_module, current_module.__package__
-    ):
-        stub_path = member_info.path
-        current_list = d.get(stub_path)
-        if current_list is None:
-            current_list = d[stub_path] = []
-        current_list.append(member_info)
+    for current_module in modules:
+        for member_info in enumerate_modules(
+            current_module, current_module.__package__
+        ):
+            stub_path = member_info.path
+            current_list = d.get(stub_path)
+            if current_list is None:
+                current_list = d[stub_path] = []
+            current_list.append(member_info)
 
     import_header = """import os
 from collections.abc import Callable
@@ -253,141 +266,6 @@ from osgeo import gdal"""
             for mi in member_infos:
                 text = format_value(mi.value, mi.name)
                 print(text, file=f)
-
-    # with Console() as c, c.pager(styles=True, links=True):
-    #     for module_path, info_list in d.items():
-    #         table = Table(
-    #             "path",
-    #             "package",
-    #             "module",
-    #             "type"
-    #             "name",
-    #             "value",
-    #             caption=str(module_path)
-    #         )
-
-    #         for info in info_list:
-    #             # Add row, skipping the "path" item in the tuple.
-    #             table.add_row(*info.as_renderables())
-
-    #         c.print(table)
-
-    # table = Table("Package", "Module", "Name", "Value")
-    # for p, module, name, value in enumerate_modules(m, m.__package__):
-    #     n = module.__name__
-    #     if p and not n.startswith(p):
-    #         n = f"{p}.{n}"
-    #     table.add_row(p, n, name, repr(value))
-    # with Console() as c, c.pager(styles=True, links=True):
-    #     c.print(table)
-
-    # for package_name, name, full_name, value in enumerate_modules(m, m):
-
-
-# @_APP.command()
-# def dump(
-#     modules: Annotated[
-#         str,
-#         typer.Argument(
-#             help="Modules for which to dump its constants.",
-#         ),
-#     ],
-#     out_dir: Annotated[
-#         Path,
-#         typer.Option(
-#             dir_okay=True,
-#             file_okay=False,
-#             help="The directory where the type stub files will be written.",
-#         ),
-#     ] = Path(".", "temp"),
-# ):
-#     """Creates Python type stub (.pyi) files for a given module."""
-#     with (
-#         Console() as c,
-#     ):
-#         processed_modules: set[ModuleType] = set()
-#         inner_modules: set[ModuleType] = set()
-
-#         modules_table = Table(
-#             "package", "module", "name", "type", "exported type stub", caption="Members"
-#         )
-
-#         @dataclass()
-#         class RowTuple:
-#             package: str
-#             module: str
-#             name: str
-#             type: str
-#             type_stub: str
-
-#             def __iter__(self):
-#                 yield self.package
-#                 yield self.module
-#                 yield self.name
-#                 yield self.type
-#                 yield self.type_stub
-
-#         current_package = None
-
-#         for m in (m_name for m_name in modules):
-#             if inspect.ispackage(m):
-#                 current_package = m.__name__
-#             else:
-#                 current_package = m.__package__
-
-#             processed_modules.add(m)
-#             # Create the path for the type stub file.
-#             m_path = Path(out_dir, *m.__name__.split(".")) / "__init__.pyi"
-#             # Create its parent directory if it does not already exist.
-#             m_path.parent.mkdir(parents=True, exist_ok=True)
-#             # Open the type stub file for writing, overwriting existing file if present.
-#             with m_path.open("wt+") as f:
-#                 # Write an import statement at the start of the file.
-#                 print("from typing import Literal\n\n", file=f)
-
-#                 # Enumerate the members of the module
-#                 for name, value in inspect.getmembers_static(m):
-#                     # Skip "private" members, which, by Python convention,
-#                     # these start with an underscore.
-#                     if name.startswith("_"):
-#                         continue
-#                     row_tuple = RowTuple(
-#                         current_package if current_package else "",
-#                         m.__name__,
-#                         name,
-#                         value.__name__
-#                         if isinstance(value, type)
-#                         else type(value).__name__,
-#                         str(m_path),
-#                     )
-#                     if inspect.ismodule(value):
-#                         # If the member is a module, add it to the set of modules.
-#                         # A set cannot have duplicate members.
-#                         if not inspect.isbuiltin(value):
-#                             inner_modules.add(value)
-#                             continue
-#                     # If the current value is a str, int, float, or bool,
-#                     # define it as a Literal value.
-#                     # Then continue to the next member
-#                     elif isinstance(value, str | int | float | bool):
-#                         literal_str = f"Literal[{repr(value)}]"
-#                         row_tuple.type = literal_str
-#                         print(f"{name} = {literal_str}", file=f)
-#                     elif callable(value):
-#                         current_text = format_callable(value)
-#                         print(current_text, file=f)
-#                     elif isinstance(value, type):
-#                         row_tuple.type = repr(value)
-#                     modules_table.add_row(*row_tuple)
-
-#             # with c.pager(styles=True, links=True):
-#             #     c.print("[bold]Modules![/bold]")
-#             #     module_members = inspect.getmembers(m, inspect.ismodule)
-#             #     c.print(*module_members, sep="\n")
-#         with c.pager(styles=True, links=True):
-#             c.print(modules_table)
-
-#         # c.print(*(im for im in inner_modules if im not in processed_modules), sep="\n")
 
 
 if __name__ == "__main__":
