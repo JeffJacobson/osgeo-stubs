@@ -141,8 +141,10 @@ def format_value(value: Any, name: str) -> str:
         pass
     elif callable(value):
         return format_callable(value)
-    elif isinstance(value, int | float | str | bool):
+    elif isinstance(value, int | str | bool):
         return f"{name}: Literal[{repr(value)}]"
+    elif isinstance(value, float):
+        return f"{name} = {repr(value)}"
     return f"# {repr(value)}"
 
 

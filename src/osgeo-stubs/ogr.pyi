@@ -8,6 +8,7 @@ from collections.abc import Generator
 from typing import Any, Literal, NamedTuple, Self, overload, type_check_only
 
 import numpy
+from numpy.typing import ArrayLike
 from osgeo.gdal import Dataset, Driver
 from osgeo.osr import SpatialReference
 import pyarrow  # type: ignore
@@ -1618,7 +1619,6 @@ class Layer(MajorObject):
     def __iter__(self) -> Generator[Feature, None, None]: ...
     def schema(self) -> list[Any]: ...
 
-    schema = ...
     def __arrow_c_stream__(self, requested_schema=...):
         """
         Export to a C ArrowArrayStream PyCapsule, according to
@@ -1646,7 +1646,7 @@ class Layer(MajorObject):
         ...
 
     def GetArrowArrayStreamInterface(
-        self, options: list[str] | dict[str, ...] = ...
+        self, options: list[str] | dict[str, Any] = ...
     ) -> ArrowArrayStreamInterface:
         """Return a proxy object that implements the __arrow_c_stream__() method,
         but allows the user to pass options.
@@ -1672,7 +1672,7 @@ class ArrowArrayStreamInterface:
         """Return an ArrowStream as PyArrow Schema and Array objects"""
         class Stream: ...
 
-    def GetArrowStreamAsNumPy(self, options=...) -> numpy.array:
+    def GetArrowStreamAsNumPy(self, options=...) -> ArrayLike:
         """Return an ArrowStream as NumPy Array objects.
         A specific option to this method is USE_MASKED_ARRAYS=YES/NO (default is YES).
         """
@@ -3216,7 +3216,7 @@ class Feature:
         ...
 
     def __del__(self) -> None: ...
-    def __repr__(self): ...
+    
     def ExportToJson(self, as_object=..., options=...) -> str | dict[str, Any]:
         """
         Export a GeoJSON object which represents the Feature.
@@ -4261,7 +4261,7 @@ class GeomFieldDefn:
     thisown = ...
     __repr__ = ...
     __swig_destroy__ = ...
-    def __init__(self, name_null_ok="", field_type=wkbUnknown) -> GeomFieldDefn:
+    def __init__(self, name_null_ok="", field_type=wkbUnknown):
         """__init__(self, name_null_ok="", field_type=wkbUnknown) -> GeomFieldDefn"""
         ...
 
@@ -4400,7 +4400,7 @@ class Geometry:
     thisown = ...
     __repr__ = ...
     __swig_destroy__ = ...
-    def __init__(self, type=wkbUnknown, wkt=None, wkb=0, gml=None) -> Geometry:
+    def __init__(self, type=wkbUnknown, wkt=None, wkb=0, gml=None):
         """__init__(self, type=wkbUnknown, wkt=None, wkb=0, gml=None) -> Geometry"""
         ...
 
@@ -5962,7 +5962,7 @@ class GeomTransformer:
 
     thisown = ...
     __repr__ = ...
-    def __init__(self, ct, options=None) -> GeomTransformer:
+    def __init__(self, ct, options=None):
         """__init__(self, ct, options=None) -> GeomTransformer"""
         ...
 
