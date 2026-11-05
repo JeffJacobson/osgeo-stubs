@@ -17,6 +17,8 @@ from types import ModuleType
 from typing import Annotated, Any, NamedTuple, cast
 
 import typer
+from rich.console import Console
+from rich.table import Table
 
 _APP = typer.Typer()
 
@@ -183,7 +185,7 @@ class MemberInfo:
 
 def enumerate_modules(
     module: ModuleType,
-    package: str | None,
+    package: str | None = None,
 ) -> Generator[MemberInfo]:
     for name, value in inspect.getmembers(
         module,
@@ -202,7 +204,19 @@ def enumerate_modules(
 
 
 def get_module(module_name: str):
+    """Gets the named module.
+    Used by typer, because it can't handle ModuleType by default
+
+    Args:
+        module_name: the name of a module
+
+    Returns:
+        The module corresponding to the module name.
+    """
     return importlib.import_module(module_name)
+
+    # # TODO: For dynamic modules like osgeo.gdal.alg that can't be imported via importlib,
+    # # import the first importable parent, then return the module from there.
     # name_parts = module_name.split(".")
     # failed_parts: list[str] = []
     # the_module: ModuleType | None = None
@@ -217,19 +231,154 @@ def get_module(module_name: str):
 
 
 def module_default_factory():
-    # from osgeo import gdal, gdalconst, ogr, osr
+    """Sets the default modules if user omits them
 
-    # return [gdal, gdalconst, ogr, osr]
+    Returns:
+        A list of strings, which are the names of modules
+    """
     return [
-        "osgeo.gdal",
-        "osgeo.gdalconst",
-        "osgeo.ogr",
-        "osgeo.osr"
+        f"osgeo.{n}" for n in ["gdal", "gdalconst", "ogr", "osr", "gdal_array", "gnm"]
+    ]
+    # return ["osgeo.gdal", "osgeo.gdalconst", "osgeo.ogr", "osgeo.osr"]
+
+
+class EnumerateConstantsTuple(NamedTuple):
+    module_name: str
+    prefix: str | None
+    member_name: str
+    member_value: str
+
+
+def enumerate_constants(
+    *modules: ModuleType,
+) -> Generator[EnumerateConstantsTuple, Any, None]:
+    """Enumerates info tuples about the constants in the given modules.
+
+    Yields:
+        _description_
+    """
+
+    # List of prefixes that consist of more than one part (separated by underscores)
+    prefixes = [
+        "ALTER",
+        "CE",
+        "CPLE",
+        "CPLES",
+        "CXT",
+        "DCAP",
+        "DIM_TYPE",
+        "DMD",
+        "F_VAL",
+        "GA",
+        "GAAT",
+        "GADV",
+        "GARIO",
+        "GAT",
+        "GCI",
+        "GDAL_DATA_COVERAGE",
+        "GDAL_DCAP",
+        "GDAL_DMD",
+        "GDT",
+        "GDsC",
+        "GEDTC",
+        "GEDTST",
+        "GEOS_PREC",
+        "GF",
+        "GFT",
+        "GFU",
+        "GGT",
+        "GMF",
+        "GNM_EDGE_DIR",
+        "GPI",
+        "GRA",
+        "GRABO",
+        "GRAUO",
+        "GRC",
+        "GRIORA",
+        "GRT",
+        "GRTT",
+        "GTO",
+        "GVM",
+        "GVOT",
+        "OAMS",
+        "OAO",
+        "ODrC",
+        "ODsC",
+        "OF",
+        "OFDMP",
+        "OFDSP",
+        "OFDT",
+        "OFST",
+        "OFT",
+        "OGRERR",
+        "OJ",
+        "OLC",
+        "OLMD",
+        "OSR_CRS_TYPE",
+        "PROJ_ERR",
+        "SRS",
+        "SRS_DN",
+        "SRS_PP",
+        "SRS_PT",
+        "SRS_UA",
+        "SRS_UL",
+        "SRS_WGS84",
+        "SRS_WKT",
+        "TZFLAG",
+        "VSI",
+        "wkb",
     ]
 
+    const_name_pattern = re.compile(r"^(?P<prefix>[A-Z][A-Z0-9]+)_\w+$")
 
-@_APP.command()
-def list_modules(
+    def get_prefix(s: str):
+        for p in prefixes:
+            if s.startswith(p):
+                return p
+        if const_name_pattern.match(s):
+            return mi.name.split("_", 1)[0]
+        return None
+
+    # # This was used to generate the list of prefixes. Won't be needed unless GDAL adds more constants.
+    # found_prefixes = set(prefixes)
+    for module in modules:
+        member_infos = [
+            mi
+            for mi in enumerate_modules(module)
+            if isinstance(mi.value, str | bool | int | float)
+            # and const_name_pattern.match(mi.name)
+        ]
+        member_infos.sort(key=lambda x: x.name)
+        for mi in member_infos:
+            prefix = get_prefix(mi.name)
+            yield EnumerateConstantsTuple(
+                mi.module.__name__, prefix, mi.name, repr(mi.value)
+            )
+
+            # if prefix:
+            #     found_prefixes.add(prefix)
+
+
+@_APP.command("consts")
+def list_consts(
+    modules: Annotated[
+        list[ModuleType],
+        typer.Argument(parser=get_module, default_factory=module_default_factory),
+    ],
+    # format: Annotated[str | None, typer.Option()] = None,
+):
+    table = Table("module", "prefix", "name", "value", title="Constants")
+
+    for const_info in enumerate_constants(*modules):
+        table.add_row(*const_info)
+
+    with Console() as c, c.pager(styles=True, links=True):
+        c.print(table)
+        # c.print(sorted(found_prefixes))
+
+
+@_APP.command("stubs")
+def make_stubs(
     modules: Annotated[
         list[ModuleType],
         typer.Argument(parser=get_module, default_factory=module_default_factory),

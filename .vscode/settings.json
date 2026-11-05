@@ -3,5 +3,9 @@
     "python-envs.defaultPackageManager": "renan-r-santos.pixi-code:pixi",
     "files.readonlyInclude": {
         ".pixi/**/*": true
+    },
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.ruff_cache": true
     }
 }
