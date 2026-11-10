@@ -1746,7 +1746,7 @@ class Feature:
         """
         ...
 
-    def GetDefnRef(self):
+    def GetDefnRef(self) -> FeatureDefn:
         r"""
         GetDefnRef(self) -> FeatureDefn
 
@@ -1762,7 +1762,7 @@ class Feature:
         """
         ...
 
-    def SetGeometry(self, *args):
+    def SetGeometry(self, geom: Geometry) -> OGRErr:
         r"""
         SetGeometry(self, geom) -> OGRErr
 
@@ -4323,14 +4323,20 @@ def CreateGeometryFromWkb(len, reference=None) -> Geometry:
     """CreateGeometryFromWkb(len, reference=None) -> Geometry"""
     ...
 
-def CreateGeometryFromWkt(val, reference=None) -> Geometry:
+def CreateGeometryFromWkt(val: str, reference=None) -> Geometry:
     """CreateGeometryFromWkt(val, reference=None) -> Geometry"""
     ...
 
-def CreateGeometryFromGML(input_string) -> Geometry: ...
-def CreateGeometryFromJson(input_string) -> Geometry: ...
-def CreateGeometryFromEsriJson(input_string) -> Geometry: ...
-def CreateGeometryFromEnvelope(*args):
+def CreateGeometryFromGML(input_string: str) -> Geometry: ...
+def CreateGeometryFromJson(input_string: str) -> Geometry: ...
+def CreateGeometryFromEsriJson(input_string: str) -> Geometry: ...
+def CreateGeometryFromEnvelope(
+    xmin: float,
+    ymin: float,
+    xmax: float,
+    ymax: float,
+    reference: SpatialReference | None = None,
+):
     r"""
     CreateGeometryFromEnvelope(xmin, ymin, xmax, ymax, reference=None) -> Geometry
 
