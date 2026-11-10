@@ -1,9 +1,13 @@
+from collections import OrderedDict
 import dataclasses
+import enum
 import re
 from collections.abc import Generator, Sequence
+from itertools import groupby
 from types import ModuleType
 from typing import Annotated, Any, Literal, cast, overload
 
+import rich
 import typer
 from rich.console import Console
 from rich.markdown import Markdown
@@ -18,8 +22,8 @@ _APP = typer.Typer()
 type OsgeoConstPrefix = Literal[
     "ALTER",
     "CE",
-    "CPLE",
     "CPLES",
+    "CPLE",
     "CXT",
     "DCAP",
     "DIM_TYPE",
@@ -72,7 +76,6 @@ type OsgeoConstPrefix = Literal[
     "OLMD",
     "OSR_CRS_TYPE",
     "PROJ_ERR",
-    "SRS",
     "SRS_DN",
     "SRS_PP",
     "SRS_PT",
@@ -80,27 +83,30 @@ type OsgeoConstPrefix = Literal[
     "SRS_UL",
     "SRS_WGS84",
     "SRS_WKT",
+    "SRS",
     "TZFLAG",
     "VSI",
     "wkb",
 ]
 
 # List of prefixes that consist of more than one part (separated by underscores)
+# The order is important. E.g., "CPLES" needs to come before "CPLE".
+# Otherwise, all of the CPLES values will be erroneously given the "CPLE" category.
 const_prefixes: tuple[OsgeoConstPrefix, ...] = (
     "ALTER",
     "CE",
-    "CPLE",
     "CPLES",
+    "CPLE",
     "CXT",
     "DCAP",
     "DIM_TYPE",
     "DMD",
     "F_VAL",
-    "GA",
     "GAAT",
     "GADV",
     "GARIO",
     "GAT",
+    "GA",
     "GCI",
     "GDAL_DATA_COVERAGE",
     "GDAL_DCAP",
@@ -143,7 +149,6 @@ const_prefixes: tuple[OsgeoConstPrefix, ...] = (
     "OLMD",
     "OSR_CRS_TYPE",
     "PROJ_ERR",
-    "SRS",
     "SRS_DN",
     "SRS_PP",
     "SRS_PT",
@@ -151,6 +156,7 @@ const_prefixes: tuple[OsgeoConstPrefix, ...] = (
     "SRS_UL",
     "SRS_WGS84",
     "SRS_WKT",
+    "SRS",
     "TZFLAG",
     "VSI",
     "wkb",
@@ -296,6 +302,55 @@ def enumerate_constants(
 
             # if prefix:
             #     found_prefixes.add(prefix)
+
+
+@_APP.command("enums")
+def make_enums(
+    modules: Annotated[
+        list[ModuleType],
+        typer.Argument(
+            parser=get_module,
+            default_factory=module_default_factory,
+            help=f"Defaults: {module_default_factory()}",
+        ),
+    ],
+    # out_file: Annotated[Path, typer.Option()] = Path("gdal_enums.py")
+):
+    """Creates Python enum definitions for the osgeo constants.
+
+    Args:
+        modules: _description_. Defaults to get_module, default_factory=module_default_factory, help=f"Defaults: {module_default_factory()}", ), ].
+    """
+    g = groupby(enumerate_constants(*modules), key=lambda x: x.prefix)
+    the_enums: dict[str, enum.Enum] = {}
+    for group_name, const_infos in g:
+        if not group_name:
+            continue
+
+        info = [
+            (ci.member_name, ci.member_value)
+            for ci in const_infos
+            if ci.prefix is not None
+        ]
+
+        info.sort(key=lambda t: t[1])
+
+        info = OrderedDict(
+            info
+        )
+
+        try:
+            the_enums[group_name] = enum.Enum(group_name, info)
+        except TypeError:
+            rich.get_console().print_exception()
+
+    print("import enum\n\n")
+
+    for k, v in the_enums.items():
+        print(f"class {k}(enum.Enum):")
+        for e in v:
+            print("   ", e.name, "=", e.value)
+        print("\n")
 
 
 @_APP.command("consts")
