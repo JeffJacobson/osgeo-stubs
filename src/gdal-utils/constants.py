@@ -189,14 +189,6 @@ class ConstantInfo:
     member_name: str
     member_value: str | int | float
 
-    def as_markdown_dict(self):
-        return {
-            "module": f"`{self.module_name}`",
-            "prefix": f"`{self.prefix}`",
-            "name": f"`{self.member_name}`",
-            "value": f"`{self.member_value}`",
-        }
-
     def as_tuple(self):
         return (self.module_name, self.prefix, self.member_name, self.member_value)
 
@@ -292,7 +284,7 @@ def enumerate_constants(
     """Enumerates info tuples about the constants in the given modules.
 
     Yields:
-        _description_
+        Information about constants
     """
 
     # # This was used to generate the list of prefixes. Won't be needed unless GDAL adds more constants.
@@ -307,7 +299,7 @@ def enumerate_constants(
         member_infos.sort(key=lambda x: x.name)
         for mi in member_infos:
             prefix = cast(OsgeoConstPrefix, get_prefix(mi.name))
-            yield ConstantInfo(mi.module.__name__, prefix, mi.name, repr(mi.value))
+            yield ConstantInfo(mi.module.__name__, prefix, mi.name, mi.value)
 
             # if prefix:
             #     found_prefixes.add(prefix)

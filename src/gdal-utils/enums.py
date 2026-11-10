@@ -1,8 +1,8 @@
 import enum
-from collections import OrderedDict
 from enum import EnumType
 from itertools import groupby
 from pathlib import Path
+from pprint import pformat
 from types import ModuleType
 from typing import Annotated
 
@@ -14,15 +14,14 @@ from .constants import enumerate_constants
 
 _APP = typer.Typer()
 
+
 def module_default_factory():
     """Sets the default modules if user omits them
 
     Returns:
         A list of strings, which are the names of modules
     """
-    return [
-        f"osgeo.{n}" for n in ["gdal", "gdalconst", "ogr", "osr", "gnm"]
-    ]
+    return [f"osgeo.{n}" for n in ["gdal", "gdalconst", "ogr", "osr", "gnm"]]
     # return ["osgeo.gdal", "osgeo.gdalconst", "osgeo.ogr", "osgeo.osr"]
 
 
@@ -40,10 +39,27 @@ def enum_to_source(cls: EnumType) -> str:
     )
 
     members = "\n".join(
-        f"    {name} = {member.value}" for name, member in cls.__members__.items()
+        f"    {name} = {pformat(member.value)}"
+        for name, member in cls.__members__.items()
     )
 
     return f"class {cls.__name__}({bases}):\n{members}"
+
+
+def create_type_def(group_name: str, const_infos: dict[str, str | int | float]) -> str:
+    """Creates Python type definition string.
+
+    Args:
+        group_name: Name of the type
+        const_infos: dictionary of values
+
+    Returns:
+        A string with a type definition
+    """
+    members = (pformat(v) for v in const_infos.values())
+    members = ",".join(members)
+    output = f"type {group_name} = Literal[{members}]"
+    return output
 
 
 @_APP.command("enums")
@@ -73,14 +89,21 @@ def make_enums(
 
     # Create the output directory if it does not already exist.
     out_dir.mkdir(exist_ok=True)
+    enum_value_types: set[type] = set()
     for m in modules:
+        # Create a list of constants for the current module
         current_constants = [*enumerate_constants(m)]
-        if not(current_constants):
+
+        for cc in current_constants:
+            enum_value_types.add(type(cc.member_value))
+        # Skip to next one if the list is empty
+        if not (current_constants):
             continue
         # Create the output file path
         out_path = out_dir / f"{m.__name__.split(".")[-1]}_consts.py"
+        # Open the file for writing text.
         with out_path.open("wt+") as f:
-            print("import enum\n\n", file=f)
+            print("import enum", "from typing import Literal", sep="\n", file=f)
             g = groupby(current_constants, key=lambda x: x.prefix)
             the_enums: dict[str, enum.Enum] = {}
             for group_name, const_infos in g:
@@ -95,16 +118,21 @@ def make_enums(
 
                 info.sort(key=lambda t: t[1])
 
-                info = OrderedDict(info)
+                info = dict(info)
+                enum_type = enum.Enum
+                if all((isinstance(i, int) for i in info.values())):
+                    enum_type = enum.IntEnum
+                elif all((isinstance(i, str) for i in info.values())):
+                    enum_type = enum.StrEnum
+                print(create_type_def(group_name, info), file=f)
 
                 try:
-                    new_enum = enum.Enum(f"{group_name}Enum", info)
+                    new_enum = enum_type(f"{group_name}Enum", info)
                     the_enums[group_name] = new_enum
                 except TypeError:
                     rich.get_console().print_exception()
                 else:
                     print(enum_to_source(new_enum), "\n\n", file=f)
-
     # print("import enum\n\n")
 
     # for k, v in the_enums.items():
