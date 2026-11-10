@@ -1618,7 +1618,6 @@ class Layer(MajorObject):
 
     def __iter__(self) -> Generator[Feature, None, None]: ...
     def schema(self) -> list[Any]: ...
-
     def __arrow_c_stream__(self, requested_schema=...):
         """
         Export to a C ArrowArrayStream PyCapsule, according to
@@ -3216,7 +3215,6 @@ class Feature:
         ...
 
     def __del__(self) -> None: ...
-    
     def ExportToJson(self, as_object=..., options=...) -> str | dict[str, Any]:
         """
         Export a GeoJSON object which represents the Feature.

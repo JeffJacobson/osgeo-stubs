@@ -19,45 +19,45 @@ simply prefixed with "gdalvsi://". For example:
 
 :since: GDAL 3.11
 """
+
 class VSIFileSystem(AbstractFileSystem):
     """Implementation of AbstractFileSystem for a GDAL Virtual File System"""
-    def info(self, path, **kwargs): # -> dict[str, Any]:
+    def info(self, path, **kwargs):  # -> dict[str, Any]:
         """Implements AbstractFileSystem.info()"""
         ...
-    
-    def modified(self, path): # -> datetime:
+
+    def modified(self, path):  # -> datetime:
         """Implements AbstractFileSystem.modified()"""
         ...
-    
-    def ls(self, path, detail=..., **kwargs): # -> list[Any]:
+
+    def ls(self, path, detail=..., **kwargs):  # -> list[Any]:
         """Implements AbstractFileSystem.ls()"""
         ...
-    
-    def mkdir(self, path, create_parents=..., **kwargs): # -> None:
+
+    def mkdir(self, path, create_parents=..., **kwargs):  # -> None:
         """Implements AbstractFileSystem.mkdir()"""
         ...
-    
-    def makedirs(self, path, exist_ok=...): # -> None:
+
+    def makedirs(self, path, exist_ok=...):  # -> None:
         """Implements AbstractFileSystem.makedirs()"""
         ...
-    
-    def rmdir(self, path): # -> None:
+
+    def rmdir(self, path):  # -> None:
         """Implements AbstractFileSystem.rmdir()"""
         ...
-    
-    def mv(self, path1, path2, recursive=..., maxdepth=..., **kwargs): # -> None:
+
+    def mv(self, path1, path2, recursive=..., maxdepth=..., **kwargs):  # -> None:
         """Implements AbstractFileSystem.mv()"""
         ...
-    
-    def copy(self, path1, path2, recursive=..., maxdepth=..., on_error=..., **kwargs): # -> None:
+
+    def copy(
+        self, path1, path2, recursive=..., maxdepth=..., on_error=..., **kwargs
+    ):  # -> None:
         """Implements AbstractFileSystem.copy()"""
         ...
-    
 
-
-def register_vsi_implementations(): # -> None:
+def register_vsi_implementations():  # -> None:
     """Register a generic "gdalvsi" protocol.
     This method is automatically called on osgeo.gdal_fsspec import.
     """
     ...
-

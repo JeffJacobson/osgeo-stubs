@@ -1,4 +1,3 @@
-
 import typer
 
 from .constants import _APP as constants_app

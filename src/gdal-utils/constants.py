@@ -1,8 +1,8 @@
 import dataclasses
 import re
-from collections.abc import Generator, MutableSequence, Sequence
+from collections.abc import Generator, Sequence
 from types import ModuleType
-from typing import Annotated, Any, Literal, cast, get_args, overload
+from typing import Annotated, Any, Literal, cast, overload
 
 import typer
 from rich.console import Console
@@ -224,7 +224,9 @@ class MultiModuleConstantInfo:
         # value for each module name indicating if the current item is in
         # that module.
         for item in items:
-            hasses = dict((mn, mn if mn in item.module_names else "") for mn in module_names)
+            hasses = dict(
+                (mn, mn if mn in item.module_names else "") for mn in module_names
+            )
             d = item.as_markdown_dict()
             del d["modules"]
             if item.member_name == "SRS_WKT_WGS84_LAT_LONG":

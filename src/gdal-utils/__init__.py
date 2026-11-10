@@ -148,9 +148,6 @@ class MemberInfo:
         )
 
 
-
-
-
 def predicate(value: Any) -> bool:
     """Determines if a member of a module should be returned from `inspect.getmembers`."""
 
