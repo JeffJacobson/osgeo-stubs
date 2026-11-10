@@ -1,0 +1,371 @@
+import enum
+
+
+class CEEnum(enum.Enum):
+    CE_None = 0
+    CE_Debug = 1
+    CE_Warning = 2
+    CE_Failure = 3
+    CE_Fatal = 4 
+
+
+class CPLESEnum(enum.Enum):
+    CPLES_BackslashQuotable = 0
+    CPLES_XML = 1
+    CPLES_URL = 2
+    CPLES_SQL = 3
+    CPLES_CSV = 4
+    CPLES_XML_BUT_QUOTES = 5
+    CPLES_SQLI = 7 
+
+
+class CPLEEnum(enum.Enum):
+    CPLE_None = 0
+    CPLE_AppDefined = 1
+    CPLE_ObjectNull = 10
+    CPLE_HttpResponse = 11
+    CPLE_AWSBucketNotFound = 12
+    CPLE_BucketNotFound = 12
+    CPLE_AWSObjectNotFound = 13
+    CPLE_ObjectNotFound = 13
+    CPLE_AWSAccessDenied = 14
+    CPLE_AccessDenied = 14
+    CPLE_AWSInvalidCredentials = 15
+    CPLE_InvalidCredentials = 15
+    CPLE_AWSSignatureDoesNotMatch = 16
+    CPLE_SignatureDoesNotMatch = 16
+    CPLE_ObjectStorageGenericError = 17
+    CPLE_OutOfMemory = 2
+    CPLE_FileIO = 3
+    CPLE_OpenFailed = 4
+    CPLE_IllegalArg = 5
+    CPLE_NotSupported = 6
+    CPLE_AssertionFailed = 7
+    CPLE_NoWriteAccess = 8
+    CPLE_UserInterrupt = 9 
+
+
+class CXTEnum(enum.Enum):
+    CXT_Element = 0
+    CXT_Text = 1
+    CXT_Attribute = 2
+    CXT_Comment = 3
+    CXT_Literal = 4 
+
+
+class DCAPEnum(enum.Enum):
+    DCAP_APPEND = 'DCAP_APPEND'
+    DCAP_COORDINATE_EPOCH = 'DCAP_COORDINATE_EPOCH'
+    DCAP_CREATE = 'DCAP_CREATE'
+    DCAP_CREATECOPY = 'DCAP_CREATECOPY'
+    DCAP_CREATECOPY_MULTIDIMENSIONAL = 'DCAP_CREATECOPY_MULTIDIMENSIONAL'
+    DCAP_CREATE_FIELD = 'DCAP_CREATE_FIELD'
+    DCAP_CREATE_LAYER = 'DCAP_CREATE_LAYER'
+    DCAP_CREATE_MULTIDIMENSIONAL = 'DCAP_CREATE_MULTIDIMENSIONAL'
+    DCAP_CREATE_ONLY_VISIBLE_AT_CLOSE_TIME = 'DCAP_CREATE_ONLY_VISIBLE_AT_CLOSE_TIME'
+    DCAP_CURVE_GEOMETRIES = 'DCAP_CURVE_GEOMETRIES'
+    DCAP_DEFAULT_FIELDS = 'DCAP_DEFAULT_FIELDS'
+    DCAP_DELETE_FIELD = 'DCAP_DELETE_FIELD'
+    DCAP_DELETE_LAYER = 'DCAP_DELETE_LAYER'
+    DCAP_FEATURE_STYLES = 'DCAP_FEATURE_STYLES'
+    DCAP_FEATURE_STYLES_READ = 'DCAP_FEATURE_STYLES_READ'
+    DCAP_FEATURE_STYLES_WRITE = 'DCAP_FEATURE_STYLES_WRITE'
+    DCAP_FIELD_DOMAINS = 'DCAP_FIELD_DOMAINS'
+    DCAP_FLUSHCACHE_CONSISTENT_STATE = 'DCAP_FLUSHCACHE_CONSISTENT_STATE'
+    DCAP_GNM = 'DCAP_GNM'
+    DCAP_MEASURED_GEOMETRIES = 'DCAP_MEASURED_GEOMETRIES'
+    DCAP_MULTIDIM_RASTER = 'DCAP_MULTIDIM_RASTER'
+    DCAP_MULTIPLE_VECTOR_LAYERS = 'DCAP_MULTIPLE_VECTOR_LAYERS'
+    DCAP_NONSPATIAL = 'DCAP_NONSPATIAL'
+    DCAP_NOTNULL_FIELDS = 'DCAP_NOTNULL_FIELDS'
+    DCAP_NOTNULL_GEOMFIELDS = 'DCAP_NOTNULL_GEOMFIELDS'
+    DCAP_OPEN = 'DCAP_OPEN'
+    DCAP_RASTER = 'DCAP_RASTER'
+    DCAP_RELATIONSHIPS = 'DCAP_RELATIONSHIPS'
+    DCAP_RENAME_LAYERS = 'DCAP_RENAME_LAYERS'
+    DCAP_REORDER_FIELDS = 'DCAP_REORDER_FIELDS'
+    DCAP_SUBCREATECOPY = 'DCAP_SUBCREATECOPY'
+    DCAP_UNIQUE_FIELDS = 'DCAP_UNIQUE_FIELDS'
+    DCAP_UPDATE = 'DCAP_UPDATE'
+    DCAP_UPSERT = 'DCAP_UPSERT'
+    DCAP_VECTOR = 'DCAP_VECTOR'
+    DCAP_VIRTUALIO = 'DCAP_VIRTUALIO'
+    DCAP_Z_GEOMETRIES = 'DCAP_Z_GEOMETRIES'
+    DCAP_MULTIPLE_VECTOR_LAYERS_IN_DIRECTORY = 'GDAL_DCAP_MULTIPLE_VECTOR_LAYERS_IN_DIRECTORY' 
+
+
+class DIM_TYPEEnum(enum.Enum):
+    DIM_TYPE_HORIZONTAL_X = 'HORIZONTAL_X'
+    DIM_TYPE_HORIZONTAL_Y = 'HORIZONTAL_Y'
+    DIM_TYPE_PARAMETRIC = 'PARAMETRIC'
+    DIM_TYPE_TEMPORAL = 'TEMPORAL'
+    DIM_TYPE_VERTICAL = 'VERTICAL' 
+
+
+class DMDEnum(enum.Enum):
+    DMD_ALTER_GEOM_FIELD_DEFN_FLAGS = 'DMD_ALTER_GEOM_FIELD_DEFN_FLAGS'
+    DMD_CONNECTION_PREFIX = 'DMD_CONNECTION_PREFIX'
+    DMD_CREATIONDATATYPES = 'DMD_CREATIONDATATYPES'
+    DMD_CREATIONFIELDDATASUBTYPES = 'DMD_CREATIONFIELDDATASUBTYPES'
+    DMD_CREATIONFIELDDATATYPES = 'DMD_CREATIONFIELDDATATYPES'
+    DMD_CREATIONOPTIONLIST = 'DMD_CREATIONOPTIONLIST'
+    DMD_CREATION_FIELD_DEFN_FLAGS = 'DMD_CREATION_FIELD_DEFN_FLAGS'
+    DMD_CREATION_FIELD_DOMAIN_TYPES = 'DMD_CREATION_FIELD_DOMAIN_TYPES'
+    DMD_EXTENSION = 'DMD_EXTENSION'
+    DMD_EXTENSIONS = 'DMD_EXTENSIONS'
+    DMD_HELPTOPIC = 'DMD_HELPTOPIC'
+    DMD_LONGNAME = 'DMD_LONGNAME'
+    DMD_MAX_STRING_LENGTH = 'DMD_MAX_STRING_LENGTH'
+    DMD_MIMETYPE = 'DMD_MIMETYPE'
+    DMD_MULTIDIM_ARRAY_CREATIONOPTIONLIST = 'DMD_MULTIDIM_ARRAY_CREATIONOPTIONLIST'
+    DMD_MULTIDIM_ARRAY_OPENOPTIONLIST = 'DMD_MULTIDIM_ARRAY_OPENOPTIONLIST'
+    DMD_MULTIDIM_ATTRIBUTE_CREATIONOPTIONLIST = 'DMD_MULTIDIM_ATTRIBUTE_CREATIONOPTIONLIST'
+    DMD_MULTIDIM_DATASET_CREATIONOPTIONLIST = 'DMD_MULTIDIM_DATASET_CREATIONOPTIONLIST'
+    DMD_MULTIDIM_DIMENSION_CREATIONOPTIONLIST = 'DMD_MULTIDIM_DIMENSION_CREATIONOPTIONLIST'
+    DMD_MULTIDIM_GROUP_CREATIONOPTIONLIST = 'DMD_MULTIDIM_GROUP_CREATIONOPTIONLIST'
+    DMD_NUMERIC_FIELD_WIDTH_INCLUDES_DECIMAL_SEPARATOR = 'DMD_NUMERIC_FIELD_WIDTH_INCLUDES_DECIMAL_SEPARATOR'
+    DMD_NUMERIC_FIELD_WIDTH_INCLUDES_SIGN = 'DMD_NUMERIC_FIELD_WIDTH_INCLUDES_SIGN'
+    DMD_OPENOPTIONLIST = 'DMD_OPENOPTIONLIST'
+    DMD_OVERVIEW_CREATIONOPTIONLIST = 'DMD_OVERVIEW_CREATIONOPTIONLIST'
+    DMD_SUBDATASETS = 'DMD_SUBDATASETS'
+    DMD_SUPPORTED_SQL_DIALECTS = 'DMD_SUPPORTED_SQL_DIALECTS'
+    DMD_UPDATE_ITEMS = 'DMD_UPDATE_ITEMS'
+    DMD_ALTER_FIELD_DEFN_FLAGS = 'GDAL_DMD_ALTER_FIELD_DEFN_FLAGS'
+    DMD_GEOMETRY_FLAGS = 'GDAL_DMD_GEOMETRY_FLAGS'
+    DMD_ILLEGAL_FIELD_NAMES = 'GDAL_DMD_ILLEGAL_FIELD_NAMES' 
+
+
+class GAATEnum(enum.Enum):
+    GAAT_BOOLEAN = 0
+    GAAT_STRING = 1
+    GAAT_INTEGER = 2
+    GAAT_REAL = 3
+    GAAT_DATASET = 4
+    GAAT_STRING_LIST = 5
+    GAAT_INTEGER_LIST = 6
+    GAAT_REAL_LIST = 7
+    GAAT_DATASET_LIST = 8 
+
+
+class GADVEnum(enum.Enum):
+    GADV_NAME = 1
+    GADV_OBJECT = 2 
+
+
+class GARIOEnum(enum.Enum):
+    GARIO_PENDING = 0
+    GARIO_UPDATE = 1
+    GARIO_ERROR = 2
+    GARIO_COMPLETE = 3 
+
+
+class GAEnum(enum.Enum):
+    GA_ReadOnly = 0
+    GA_Update = 1 
+
+
+class GCIEnum(enum.Enum):
+    GCI_Undefined = 0
+    GCI_GrayIndex = 1
+    GCI_CyanBand = 10
+    GCI_MagentaBand = 11
+    GCI_YellowBand = 12
+    GCI_BlackBand = 13
+    GCI_YCbCr_YBand = 14
+    GCI_YCbCr_CbBand = 15
+    GCI_YCbCr_CrBand = 16
+    GCI_PanBand = 17
+    GCI_CoastalBand = 18
+    GCI_RedEdgeBand = 19
+    GCI_PaletteIndex = 2
+    GCI_IR_Start = 20
+    GCI_NIRBand = 20
+    GCI_SWIRBand = 21
+    GCI_MWIRBand = 22
+    GCI_LWIRBand = 23
+    GCI_TIRBand = 24
+    GCI_OtherIRBand = 25
+    GCI_IR_End = 29
+    GCI_RedBand = 3
+    GCI_SAR_Ka_Band = 30
+    GCI_SAR_Start = 30
+    GCI_SAR_K_Band = 31
+    GCI_SAR_Ku_Band = 32
+    GCI_SAR_X_Band = 33
+    GCI_SAR_C_Band = 34
+    GCI_SAR_S_Band = 35
+    GCI_SAR_L_Band = 36
+    GCI_SAR_P_Band = 37
+    GCI_Max = 39
+    GCI_SAR_End = 39
+    GCI_GreenBand = 4
+    GCI_BlueBand = 5
+    GCI_AlphaBand = 6
+    GCI_HueBand = 7
+    GCI_SaturationBand = 8
+    GCI_LightnessBand = 9 
+
+
+class GDAL_DATA_COVERAGEEnum(enum.Enum):
+    GDAL_DATA_COVERAGE_STATUS_UNIMPLEMENTED = 1
+    GDAL_DATA_COVERAGE_STATUS_DATA = 2
+    GDAL_DATA_COVERAGE_STATUS_EMPTY = 4 
+
+
+class GDAL_DCAPEnum(enum.Enum):
+    GDAL_DCAP_CREATE_RELATIONSHIP = 'DCAP_CREATE_RELATIONSHIP'
+    GDAL_DCAP_DELETE_RELATIONSHIP = 'DCAP_DELETE_RELATIONSHIP'
+    GDAL_DCAP_UPDATE_RELATIONSHIP = 'DCAP_UPDATE_RELATIONSHIP' 
+
+
+class GDAL_DMDEnum(enum.Enum):
+    GDAL_DMD_RELATIONSHIP_FLAGS = 'GDAL_DMD_RELATIONSHIP_FLAGS'
+    GDAL_DMD_RELATIONSHIP_RELATED_TABLE_TYPES = 'GDAL_DMD_RELATIONSHIP_RELATED_TABLE_TYPES' 
+
+
+class GDTEnum(enum.Enum):
+    GDT_Unknown = 0
+    GDT_Byte = 1
+    GDT_UInt8 = 1
+    GDT_CFloat32 = 10
+    GDT_CFloat64 = 11
+    GDT_UInt64 = 12
+    GDT_Int64 = 13
+    GDT_Int8 = 14
+    GDT_Float16 = 15
+    GDT_CFloat16 = 16
+    GDT_TypeCount = 17
+    GDT_UInt16 = 2
+    GDT_Int16 = 3
+    GDT_UInt32 = 4
+    GDT_Int32 = 5
+    GDT_Float32 = 6
+    GDT_Float64 = 7
+    GDT_CInt16 = 8
+    GDT_CInt32 = 9 
+
+
+class GDsCEnum(enum.Enum):
+    GDsCAddRelationship = 'AddRelationship'
+    GDsCDeleteRelationship = 'DeleteRelationship'
+    GDsCFastGetExtent = 'FastGetExtent'
+    GDsCFastGetExtentWGS84LongLat = 'FastGetExtentWGS84LongLat'
+    GDsCUpdateRelationship = 'UpdateRelationship' 
+
+
+class GFTEnum(enum.Enum):
+    GFT_Integer = 0
+    GFT_Real = 1
+    GFT_String = 2
+    GFT_Boolean = 3
+    GFT_DateTime = 4
+    GFT_WKBGeometry = 5 
+
+
+class GFUEnum(enum.Enum):
+    GFU_Generic = 0
+    GFU_PixelCount = 1
+    GFU_RedMin = 10
+    GFU_GreenMin = 11
+    GFU_BlueMin = 12
+    GFU_AlphaMin = 13
+    GFU_RedMax = 14
+    GFU_GreenMax = 15
+    GFU_BlueMax = 16
+    GFU_AlphaMax = 17
+    GFU_MaxCount = 18
+    GFU_Name = 2
+    GFU_Min = 3
+    GFU_Max = 4
+    GFU_MinMax = 5
+    GFU_Red = 6
+    GFU_Green = 7
+    GFU_Blue = 8
+    GFU_Alpha = 9 
+
+
+class GFEnum(enum.Enum):
+    GF_Read = 0
+    GF_Write = 1 
+
+
+class GMFEnum(enum.Enum):
+    GMF_ALL_VALID = 1
+    GMF_PER_DATASET = 2
+    GMF_ALPHA = 4
+    GMF_NODATA = 8 
+
+
+class GPIEnum(enum.Enum):
+    GPI_Gray = 0
+    GPI_RGB = 1
+    GPI_CMYK = 2
+    GPI_HLS = 3 
+
+
+class GRAEnum(enum.Enum):
+    GRA_NearestNeighbour = 0
+    GRA_Bilinear = 1
+    GRA_Med = 10
+    GRA_Q1 = 11
+    GRA_Q3 = 12
+    GRA_Sum = 13
+    GRA_RMS = 14
+    GRA_Cubic = 2
+    GRA_CubicSpline = 3
+    GRA_Lanczos = 4
+    GRA_Average = 5
+    GRA_Mode = 6
+    GRA_Max = 8
+    GRA_Min = 9 
+
+
+class GRCEnum(enum.Enum):
+    GRC_ONE_TO_ONE = 0
+    GRC_ONE_TO_MANY = 1
+    GRC_MANY_TO_ONE = 2
+    GRC_MANY_TO_MANY = 3 
+
+
+class GRIORAEnum(enum.Enum):
+    GRIORA_NearestNeighbour = 0
+    GRIORA_Bilinear = 1
+    GRIORA_RMS = 14
+    GRIORA_Cubic = 2
+    GRIORA_CubicSpline = 3
+    GRIORA_Lanczos = 4
+    GRIORA_Average = 5
+    GRIORA_Mode = 6
+    GRIORA_Gauss = 7 
+
+
+class GRTTEnum(enum.Enum):
+    GRTT_THEMATIC = 0
+    GRTT_ATHEMATIC = 1 
+
+
+class GRTEnum(enum.Enum):
+    GRT_COMPOSITE = 0
+    GRT_ASSOCIATION = 1
+    GRT_AGGREGATION = 2 
+
+
+class GTOEnum(enum.Enum):
+    GTO_TIP = 0
+    GTO_BIT = 1
+    GTO_BSQ = 2 
+
+
+class OFEnum(enum.Enum):
+    OF_ALL = 0
+    OF_READONLY = 0
+    OF_UPDATE = 1
+    OF_MULTIDIM_RASTER = 16
+    OF_RASTER = 2
+    OF_THREAD_SAFE = 2048
+    OF_SHARED = 32
+    OF_VECTOR = 4
+    OF_VERBOSE_ERROR = 64
+    OF_GNM = 8 
+
+

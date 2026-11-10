@@ -85,39 +85,54 @@ type OsgeoConstPrefix = Literal[
     "wkb",
 ]
 
+atypical_const_prefixes: tuple[OsgeoConstPrefix, ...] = (
+    "DIM_TYPE",
+    "F_VAL",
+    "GDAL_DATA_COVERAGE",
+    "GDAL_DCAP",
+    "GDAL_DMD",
+    "GDsC",
+    "GEOS_PREC",
+    "GNM_EDGE_DIR",
+    "ODrC",
+    "ODsC",
+    "OSR_CRS_TYPE",
+    "PROJ_ERR",
+    "SRS_DN",
+    "SRS_PP",
+    "SRS_PT",
+    "SRS_UA",
+    "SRS_UL",
+    "SRS_WGS84",
+    "SRS_WKT",
+    "wkb",
+)
+
 # List of prefixes that consist of more than one part (separated by underscores)
 # The order is important. E.g., "CPLES" needs to come before "CPLE".
 # Otherwise, all of the CPLES values will be erroneously given the "CPLE" category.
 const_prefixes: tuple[OsgeoConstPrefix, ...] = (
+    *atypical_const_prefixes,
     "ALTER",
     "CE",
     "CPLES",
     "CPLE",
     "CXT",
     "DCAP",
-    "DIM_TYPE",
     "DMD",
-    "F_VAL",
     "GAAT",
     "GADV",
     "GARIO",
     "GAT",
     "GA",
     "GCI",
-    "GDAL_DATA_COVERAGE",
-    "GDAL_DCAP",
-    "GDAL_DMD",
-    "GDT",
-    "GDsC",
     "GEDTC",
     "GEDTST",
-    "GEOS_PREC",
     "GF",
     "GFT",
     "GFU",
     "GGT",
     "GMF",
-    "GNM_EDGE_DIR",
     "GPI",
     "GRA",
     "GRABO",
@@ -131,8 +146,6 @@ const_prefixes: tuple[OsgeoConstPrefix, ...] = (
     "GVOT",
     "OAMS",
     "OAO",
-    "ODrC",
-    "ODsC",
     "OF",
     "OFDMP",
     "OFDSP",
@@ -155,8 +168,18 @@ const_prefixes: tuple[OsgeoConstPrefix, ...] = (
     "SRS",
     "TZFLAG",
     "VSI",
-    "wkb",
 )
+
+const_name_pattern = re.compile(r"^(?P<prefix>[A-Z][A-Z0-9]+)_\w+$")
+
+
+def get_prefix(s: str):
+    for p in atypical_const_prefixes:
+        if s.startswith(p):
+            return p
+    if const_name_pattern.match(s):
+        return s.split("_", 1)[0]
+    return None
 
 
 @dataclasses.dataclass(order=True)
@@ -271,16 +294,6 @@ def enumerate_constants(
     Yields:
         _description_
     """
-
-    const_name_pattern = re.compile(r"^(?P<prefix>[A-Z][A-Z0-9]+)_\w+$")
-
-    def get_prefix(s: str):
-        for p in const_prefixes:
-            if s.startswith(p):
-                return p
-        if const_name_pattern.match(s):
-            return mi.name.split("_", 1)[0]
-        return None
 
     # # This was used to generate the list of prefixes. Won't be needed unless GDAL adds more constants.
     # found_prefixes = set(prefixes)
