@@ -24,7 +24,7 @@ class _SwigNonDynamicMeta(type):
     __setattr__ = ...
 
 type CPLErr = int
-type OGRErr = int
+type OGRErr = Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 """
 * `osgeo.ogr.OGRERR_NONE`
 * `osgeo.ogr.OGRERR_NOT_ENOUGH_DATA`
